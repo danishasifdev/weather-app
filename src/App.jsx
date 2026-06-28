@@ -873,11 +873,7 @@ export default function App() {
                   style={{ fontSize: "56px", marginBottom: "10px" }}
                   className="flex items-center justify-center"
                 >
-                  <img
-                    src="./../public/icon.png"
-                    alt="icon"
-                    className="w-10 h-10"
-                  />
+                  <img src="/icon.png" alt="icon" className="w-10 h-10" />
                 </div>
                 <p style={{ color: "#fff", fontSize: "28px", fontWeight: 200 }}>
                   Weather
