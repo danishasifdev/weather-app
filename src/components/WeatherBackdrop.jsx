@@ -33,8 +33,20 @@ function makeCloudSprite(top, bottom) {
 function drawRidges(ctx, w, h, isDay, category) {
   const dark = category === "storm" || category === "rain";
   const layers = [
-    { y: 0.8, amp: 0.075, step: 220, color: isDay ? "rgba(127,201,208,.30)" : "rgba(3,8,18,.6)", seed: 1.3 },
-    { y: 0.9, amp: 0.05, step: 155, color: isDay ? "rgba(127,201,208,.42)" : "rgba(2,5,12,.8)", seed: 3.7 },
+    {
+      y: 0.8,
+      amp: 0.075,
+      step: 220,
+      color: isDay ? "rgba(127,201,208,.30)" : "rgba(3,8,18,.6)",
+      seed: 1.3,
+    },
+    {
+      y: 0.9,
+      amp: 0.05,
+      step: 155,
+      color: isDay ? "rgba(127,201,208,.42)" : "rgba(2,5,12,.8)",
+      seed: 3.7,
+    },
   ];
   if (dark) layers.forEach((l) => (l.color = isDay ? "rgba(90,120,140,.35)" : "rgba(2,5,12,.8)"));
 
@@ -42,7 +54,8 @@ function drawRidges(ctx, w, h, isDay, category) {
     ctx.beginPath();
     ctx.moveTo(0, h);
     for (let px = 0; px <= w + layer.step; px += layer.step) {
-      const peak = h * layer.y - h * layer.amp * (0.25 + 0.75 * Math.abs(Math.sin(px * 0.0055 + layer.seed)));
+      const peak =
+        h * layer.y - h * layer.amp * (0.25 + 0.75 * Math.abs(Math.sin(px * 0.0055 + layer.seed)));
       ctx.lineTo(px, peak);
     }
     ctx.lineTo(w, h);
@@ -52,7 +65,7 @@ function drawRidges(ctx, w, h, isDay, category) {
   });
 }
 
-/** Layered, condition-aware atmosphere — capped at ~35fps for smooth scrolling. */
+/** Layered, condition-aware atmosphere - capped at ~35fps for smooth scrolling. */
 export default function WeatherBackdrop({ category = "clear", isDay = true }) {
   const canvasRef = useRef(null);
 
@@ -84,7 +97,15 @@ export default function WeatherBackdrop({ category = "clear", isDay = true }) {
 
     function createScene() {
       const count =
-        category === "storm" ? 8 : category === "cloudy" ? 9 : category === "fog" ? 7 : category === "partly" ? 4 : 2;
+        category === "storm"
+          ? 8
+          : category === "cloudy"
+            ? 9
+            : category === "fog"
+              ? 7
+              : category === "partly"
+                ? 4
+                : 2;
       const sprite =
         category === "storm" || category === "rain"
           ? sprites.dark
@@ -229,13 +250,16 @@ export default function WeatherBackdrop({ category = "clear", isDay = true }) {
         ctx.beginPath();
         ctx.moveTo(d.x, d.y);
         ctx.lineTo(d.x - d.len * 0.16, d.y + d.len);
-        ctx.strokeStyle = isDay ? `rgba(60,130,150,${d.opacity + 0.08})` : `rgba(190,222,255,${d.opacity})`;
+        ctx.strokeStyle = isDay
+          ? `rgba(60,130,150,${d.opacity + 0.08})`
+          : `rgba(190,222,255,${d.opacity})`;
         ctx.lineWidth = d.near ? 1.4 : 0.8;
         ctx.stroke();
         d.y += d.speed;
         d.x -= d.speed * 0.16;
         if (d.y > h) {
-          if (d.near && Math.random() > 0.65) splashes.push({ x: d.x, y: h - rand(2, 24), ttl: 12 });
+          if (d.near && Math.random() > 0.65)
+            splashes.push({ x: d.x, y: h - rand(2, 24), ttl: 12 });
           d.y = -d.len;
           d.x = rand(0, w + 60);
         }
@@ -244,7 +268,9 @@ export default function WeatherBackdrop({ category = "clear", isDay = true }) {
       splashes.forEach((s) => {
         ctx.beginPath();
         ctx.ellipse(s.x, s.y, (12 - s.ttl) * 1.5, (12 - s.ttl) * 0.35, 0, 0, TAU);
-        ctx.strokeStyle = isDay ? `rgba(60,130,150,${(s.ttl / 12) * 0.22})` : `rgba(190,222,255,${(s.ttl / 12) * 0.25})`;
+        ctx.strokeStyle = isDay
+          ? `rgba(60,130,150,${(s.ttl / 12) * 0.22})`
+          : `rgba(190,222,255,${(s.ttl / 12) * 0.25})`;
         ctx.lineWidth = 1;
         ctx.stroke();
         s.ttl -= 1;
@@ -316,7 +342,12 @@ export default function WeatherBackdrop({ category = "clear", isDay = true }) {
       lastFrame = ts;
 
       ctx.clearRect(0, 0, w, h);
-      if (category === "clear" || category === "partly" || category === "cloudy" || category === "fog") {
+      if (
+        category === "clear" ||
+        category === "partly" ||
+        category === "cloudy" ||
+        category === "fog"
+      ) {
         drawSky(ts);
       }
       drawClouds(ts);
@@ -346,5 +377,11 @@ export default function WeatherBackdrop({ category = "clear", isDay = true }) {
     };
   }, [category, isDay]);
 
-  return <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+    />
+  );
 }

@@ -279,12 +279,7 @@ export function CurrentWeatherScene({ category = "partly", isDay = true }) {
             <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
           </radialGradient>
 
-          <CloudDefs
-            ids={ids}
-            top={m.cloud[0]}
-            bottom={m.cloud[1]}
-            shade={m.shade}
-          />
+          <CloudDefs ids={ids} top={m.cloud[0]} bottom={m.cloud[1]} shade={m.shade} />
 
           <linearGradient id={ids.hillMid} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={m.hillMid[0]} />
@@ -313,23 +308,13 @@ export function CurrentWeatherScene({ category = "partly", isDay = true }) {
               stopColor={isDay ? "#1C4A6B" : "#0A1328"}
               stopOpacity={isDay ? 0.16 : 0.22}
             />
-            <stop
-              offset="50%"
-              stopColor={isDay ? "#1C4A6B" : "#0A1328"}
-              stopOpacity="0"
-            />
+            <stop offset="50%" stopColor={isDay ? "#1C4A6B" : "#0A1328"} stopOpacity="0" />
           </linearGradient>
         </defs>
 
         {/* Sky */}
         <rect width="600" height="340" fill={`url(#${ids.sky})`} />
-        <ellipse
-          cx="470"
-          cy="90"
-          rx="230"
-          ry="180"
-          fill={`url(#${ids.light})`}
-        />
+        <ellipse cx="470" cy="90" rx="230" ry="180" fill={`url(#${ids.light})`} />
 
         {/* Stars */}
         {!isDay &&
@@ -391,69 +376,26 @@ export function CurrentWeatherScene({ category = "partly", isDay = true }) {
         />
 
         {/* Clouds */}
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={150}
-          y={196}
-          s={0.5}
-          o={0.55}
-          drift={2}
-          sh={0.1}
-        />
+        <CloudAt ids={ids} shadow={m.shadow} x={150} y={196} s={0.5} o={0.55} drift={2} sh={0.1} />
         {!clear && (
-          <CloudAt
-            ids={ids}
-            shadow={m.shadow}
-            x={318}
-            y={130}
-            s={1.25}
-            drift={1}
-            sh={0.18}
-          />
+          <CloudAt ids={ids} shadow={m.shadow} x={318} y={130} s={1.25} drift={1} sh={0.18} />
         )}
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={436}
-          y={206}
-          s={0.7}
-          o={0.92}
-          drift={2}
-          sh={0.12}
-        />
+        <CloudAt ids={ids} shadow={m.shadow} x={436} y={206} s={0.7} o={0.92} drift={2} sh={0.12} />
         {!clear && (
-          <CloudAt
-            ids={ids}
-            shadow={m.shadow}
-            x={60}
-            y={232}
-            s={0.8}
-            o={0.8}
-            drift={1}
-            sh={0.1}
-          />
+          <CloudAt ids={ids} shadow={m.shadow} x={60} y={232} s={0.8} o={0.8} drift={1} sh={0.1} />
         )}
 
         {/* Lightning */}
         {stormy && (
           <>
-            <rect
-              width="600"
-              height="340"
-              fill="#FFFFFF"
-              className={`${p}-flash`}
-            />
+            <rect width="600" height="340" fill="#FFFFFF" className={`${p}-flash`} />
             <g className={`${p}-bolt`}>
               <path
                 d="M440 250l-14 26h10l-8 24 22-32h-11l9-18Z"
                 fill="#FFF3B0"
                 filter={`url(#${ids.soft})`}
               />
-              <path
-                d="M440 250l-14 26h10l-8 24 22-32h-11l9-18Z"
-                fill="#FFF8CC"
-              />
+              <path d="M440 250l-14 26h10l-8 24 22-32h-11l9-18Z" fill="#FFF8CC" />
             </g>
           </>
         )}
@@ -588,20 +530,11 @@ export function AirQualityScene({ aqi }) {
             <stop offset="100%" stopColor={m.sky[3]} />
           </linearGradient>
 
-          <CloudDefs
-            ids={ids}
-            top={m.cloud[0]}
-            bottom={m.cloud[1]}
-            shade={m.shade}
-          />
+          <CloudDefs ids={ids} top={m.cloud[0]} bottom={m.cloud[1]} shade={m.shade} />
 
           <radialGradient id={ids.glow}>
             <stop offset="0%" stopColor={m.glow[0]} stopOpacity={m.glow[2]} />
-            <stop
-              offset="45%"
-              stopColor={m.glow[1]}
-              stopOpacity={m.glow[2] * 0.33}
-            />
+            <stop offset="45%" stopColor={m.glow[1]} stopOpacity={m.glow[2] * 0.33} />
             <stop offset="100%" stopColor={m.glow[1]} stopOpacity="0" />
           </radialGradient>
 
@@ -642,11 +575,7 @@ export function AirQualityScene({ aqi }) {
 
         {/* Sun bloom, rays and core */}
         <circle cx="110" cy="62" r="190" fill={`url(#${ids.glow})`} />
-        <g
-          transform="translate(110 62)"
-          opacity={m.rays}
-          filter={`url(#${ids.soft})`}
-        >
+        <g transform="translate(110 62)" opacity={m.rays} filter={`url(#${ids.soft})`}>
           {[-82, -64, -46, -30, -14, 4].map((a, i) => (
             <rect
               key={a}
@@ -666,13 +595,7 @@ export function AirQualityScene({ aqi }) {
         <rect width="600" height="340" fill={m.smog[0]} opacity={m.smog[1]} />
 
         {/* Horizon haze */}
-        <ellipse
-          cx="300"
-          cy="330"
-          rx="380"
-          ry="90"
-          fill={`url(#${ids.haze})`}
-        />
+        <ellipse cx="300" cy="330" rx="380" ry="90" fill={`url(#${ids.haze})`} />
 
         {/* Kite */}
         <g transform="translate(402 34) rotate(9)">
@@ -686,12 +609,7 @@ export function AirQualityScene({ aqi }) {
               strokeWidth="2.5"
               strokeLinejoin="round"
             />
-            <path
-              d="M52 8V104M12 56H92"
-              stroke="#FFE5D4"
-              strokeWidth="1.6"
-              opacity="0.8"
-            />
+            <path d="M52 8V104M12 56H92" stroke="#FFE5D4" strokeWidth="1.6" opacity="0.8" />
             <path
               d="M52 104C46 130 60 144 48 166"
               stroke="#FFF7EE"
@@ -699,71 +617,18 @@ export function AirQualityScene({ aqi }) {
               fill="none"
               strokeLinecap="round"
             />
-            <path
-              d="M48 130C34 132 30 142 32 150C42 148 47 139 48 130Z"
-              fill="#D9ED8A"
-            />
-            <path
-              d="M49 146C62 147 67 157 66 165C56 164 51 155 49 146Z"
-              fill="#D9ED8A"
-            />
+            <path d="M48 130C34 132 30 142 32 150C42 148 47 139 48 130Z" fill="#D9ED8A" />
+            <path d="M49 146C62 147 67 157 66 165C56 164 51 155 49 146Z" fill="#D9ED8A" />
           </g>
         </g>
 
         {/* Clouds: far to near */}
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={335}
-          y={146}
-          s={0.6}
-          o={0.55}
-          drift={2}
-          sh={0.1}
-        />
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={470}
-          y={196}
-          s={0.5}
-          o={0.5}
-          drift={1}
-          sh={0.1}
-        />
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={40}
-          y={108}
-          s={0.95}
-          drift={1}
-        />
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={-50}
-          y={236}
-          s={1.3}
-          drift={2}
-        />
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={130}
-          y={282}
-          s={1.2}
-          o={0.92}
-          drift={1}
-        />
-        <CloudAt
-          ids={ids}
-          shadow={m.shadow}
-          x={300}
-          y={250}
-          s={1.5}
-          drift={2}
-        />
+        <CloudAt ids={ids} shadow={m.shadow} x={335} y={146} s={0.6} o={0.55} drift={2} sh={0.1} />
+        <CloudAt ids={ids} shadow={m.shadow} x={470} y={196} s={0.5} o={0.5} drift={1} sh={0.1} />
+        <CloudAt ids={ids} shadow={m.shadow} x={40} y={108} s={0.95} drift={1} />
+        <CloudAt ids={ids} shadow={m.shadow} x={-50} y={236} s={1.3} drift={2} />
+        <CloudAt ids={ids} shadow={m.shadow} x={130} y={282} s={1.2} o={0.92} drift={1} />
+        <CloudAt ids={ids} shadow={m.shadow} x={300} y={250} s={1.5} drift={2} />
       </svg>
     </div>
   );
@@ -805,7 +670,7 @@ export function UmbrellaIllustration() {
 
   return (
     <svg
-      className={`${p} pointer-events-none absolute -bottom-2 -right-[18px] z-[1] h-auto w-[64%] max-[900px]:w-[48%] max-[520px]:w-[54%]`}
+      className={`${p} pointer-events-none absolute -right-4.5 -bottom-2 z-1 h-auto w-[64%] max-[900px]:w-[48%] max-[520px]:w-[54%]`}
       viewBox="0 0 300 360"
       role="img"
       aria-label="Person holding an umbrella in the rain"
@@ -850,14 +715,7 @@ export function UmbrellaIllustration() {
       </g>
 
       {/* Puddle and ripples */}
-      <ellipse
-        cx="176"
-        cy="346"
-        rx="104"
-        ry="10"
-        fill="#55B5E5"
-        opacity="0.12"
-      />
+      <ellipse cx="176" cy="346" rx="104" ry="10" fill="#55B5E5" opacity="0.12" />
       <ellipse cx="176" cy="346" rx="68" ry="6" fill="#55B5E5" opacity="0.16" />
       <g fill="none" stroke="#55B5E5" strokeWidth="2">
         <ellipse className={`${p}-ripple`} cx="146" cy="346" rx="26" ry="5" />
@@ -874,31 +732,13 @@ export function UmbrellaIllustration() {
       {/* Person */}
       <g transform="translate(2 0)">
         {/* legs and boots */}
-        <path
-          d="M156 290v38M188 290v38"
-          stroke="#1C2B45"
-          strokeWidth="13"
-          strokeLinecap="round"
-        />
-        <path
-          d="M143 332h26M175 332h26"
-          stroke="#FF8129"
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
+        <path d="M156 290v38M188 290v38" stroke="#1C2B45" strokeWidth="13" strokeLinecap="round" />
+        <path d="M143 332h26M175 332h26" stroke="#FF8129" strokeWidth="10" strokeLinecap="round" />
 
         {/* coat */}
-        <path
-          d="M151 214C160 208 184 208 193 214L211 292H133Z"
-          fill={`url(#${ids.coat})`}
-        />
+        <path d="M151 214C160 208 184 208 193 214L211 292H133Z" fill={`url(#${ids.coat})`} />
         <path d="M151 214 133 292h14l12-78Z" fill="#FFFFFF" opacity="0.07" />
-        <path
-          d="M172 226V292"
-          stroke="#FFFFFF"
-          strokeWidth="1.6"
-          opacity="0.14"
-        />
+        <path d="M172 226V292" stroke="#FFFFFF" strokeWidth="1.6" opacity="0.14" />
         <path
           d="M146 266h18M180 266h18"
           stroke="#FFFFFF"
@@ -970,22 +810,10 @@ export function UmbrellaIllustration() {
         <g clipPath={`url(#${ids.clip})`}>
           <path d={CANOPY} fill={`url(#${ids.canopy})`} />
           {/* lit left panel */}
-          <path
-            d="M150 36C128 52 96 96 89 160H0V20H150Z"
-            fill="#FFFFFF"
-            opacity="0.14"
-          />
+          <path d="M150 36C128 52 96 96 89 160H0V20H150Z" fill="#FFFFFF" opacity="0.14" />
           {/* shaded alternating panels */}
-          <path
-            d="M150 36C128 52 96 96 89 160H150Z"
-            fill="#B94A00"
-            opacity="0.1"
-          />
-          <path
-            d="M150 36C172 52 204 96 211 160H290V20H150Z"
-            fill="#B94A00"
-            opacity="0.14"
-          />
+          <path d="M150 36C128 52 96 96 89 160H150Z" fill="#B94A00" opacity="0.1" />
+          <path d="M150 36C172 52 204 96 211 160H290V20H150Z" fill="#B94A00" opacity="0.14" />
           {/* sheen */}
           <ellipse
             cx="96"
@@ -1013,12 +841,7 @@ export function UmbrellaIllustration() {
           opacity="0.55"
           strokeLinejoin="round"
         />
-        <path
-          d="M150 36V22"
-          stroke="#1C2B45"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
+        <path d="M150 36V22" stroke="#1C2B45" strokeWidth="4" strokeLinecap="round" />
         <circle cx="150" cy="19" r="3.6" fill="#1C2B45" />
       </g>
 

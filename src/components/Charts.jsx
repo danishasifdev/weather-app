@@ -75,22 +75,12 @@ export function SunPath({ sunrise, sunset, now = new Date() }) {
 
         {MARKERS.map((p, i) => (
           <g key={i}>
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r="8"
-              fill="#fff"
-              stroke="#FF8129"
-              strokeWidth="2"
-            />
+            <circle cx={p.x} cy={p.y} r="8" fill="#fff" stroke="#FF8129" strokeWidth="2" />
             <circle cx={p.x} cy={p.y} r="2.8" fill="#FF8129" />
           </g>
         ))}
 
-        <g
-          transform={`translate(${sun.x} ${sun.y})`}
-          opacity={isDaytime ? 1 : 0.45}
-        >
+        <g transform={`translate(${sun.x} ${sun.y})`} opacity={isDaytime ? 1 : 0.45}>
           <circle r="12" fill="#FFE0D0" opacity="0.9" />
           <circle r="7" fill="#FF8129" />
           <g stroke="#FF8129" strokeWidth="1.5" strokeLinecap="round">
@@ -106,7 +96,7 @@ export function SunPath({ sunrise, sunset, now = new Date() }) {
         </div>
 
         {hasTimes && (
-          <span className="text-center text-10px text-brand-muted">
+          <span className="text-10px text-brand-muted text-center">
             Daylight peak {pad(Math.floor(mid / 60))}:{pad(mid % 60)}
           </span>
         )}
@@ -145,7 +135,7 @@ function displayValue(slot, mode, unit) {
   return slot.temp == null ? "--" : `${slot.temp}°`;
 }
 
-/** Custom Bézier chart — no bars, no visible axes, HTML labels. */
+/** Custom Bézier chart - no bars, no visible axes, HTML labels. */
 export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
   if (!slots.length) return null;
 
@@ -172,12 +162,12 @@ export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
       aria-label={`${mode} chart for four parts of the day`}
     >
       {/* Chart area */}
-      <div className="relative h-[190px] w-full min-w-0">
+      <div className="relative h-47.5 w-full min-w-0">
         {/* Vertical separators */}
         <div className="pointer-events-none absolute inset-0 grid grid-cols-4">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="flex justify-center">
-              {i !== 0 && <span className="h-full w-px bg-brand-navy/[0.08]" />}
+              {i !== 0 && <span className="bg-brand-navy/8 h-full w-px" />}
             </div>
           ))}
         </div>
@@ -212,10 +202,7 @@ export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
           />
 
           {/* Area below curve */}
-          <path
-            d={`${smoothPath(points)} L 350 145 L 50 145 Z`}
-            fill="url(#chart-fill)"
-          />
+          <path d={`${smoothPath(points)} L 350 145 L 50 145 Z`} fill="url(#chart-fill)" />
 
           {/* Main curve */}
           <path
@@ -230,12 +217,7 @@ export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
           {/* Temperature dots */}
           {points.map((point, index) => (
             <g key={index}>
-              <circle
-                cx={point.x}
-                cy={point.y}
-                r="7"
-                fill={index === 1 ? "#1C2B45" : "#FF8129"}
-              />
+              <circle cx={point.x} cy={point.y} r="7" fill={index === 1 ? "#1C2B45" : "#FF8129"} />
             </g>
           ))}
         </svg>
@@ -255,10 +237,10 @@ export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
               }}
             >
               <div
-                className={`grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full border transition-colors ${
+                className={`grid h-10 w-10 place-items-center rounded-full border transition-colors sm:h-12 sm:w-12 ${
                   index === 1
                     ? "border-brand-navy bg-brand-navy text-brand-orange shadow-[0_12px_25px_rgba(28,43,69,0.12)]"
-                    : "border-brand-navy/10 bg-white text-brand-sky shadow-[0_5px_18px_rgba(28,43,69,0.04)]"
+                    : "border-brand-navy/10 text-brand-sky bg-white shadow-[0_5px_18px_rgba(28,43,69,0.04)]"
                 }`}
               >
                 <WeatherIcon
@@ -279,13 +261,11 @@ export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
             key={slot.label}
             className="flex min-w-0 flex-col items-center gap-1.5 py-2 text-center"
           >
-            <strong className="text-[20px] font-bold tracking-[-0.04em] text-brand-text">
+            <strong className="text-brand-text text-[20px] font-bold tracking-[-0.04em]">
               {displayValue(slot, mode, unit)}
             </strong>
 
-            <span className="text-13px font-medium text-brand-muted">
-              {slot.label}
-            </span>
+            <span className="text-13px text-brand-muted font-medium">{slot.label}</span>
           </div>
         ))}
       </div>

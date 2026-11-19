@@ -37,11 +37,8 @@ export function weatherInfo(code) {
 }
 
 export function dayLabel(iso) {
-  if (new Date(iso).toDateString() === new Date().toDateString())
-    return "Today";
-  return new Intl.DateTimeFormat("en", { weekday: "short" }).format(
-    new Date(iso),
-  );
+  if (new Date(iso).toDateString() === new Date().toDateString()) return "Today";
+  return new Intl.DateTimeFormat("en", { weekday: "short" }).format(new Date(iso));
 }
 
 export function longDayLabel(iso) {
@@ -67,7 +64,7 @@ export function shortHourLabel(iso) {
 }
 
 export function clockLabel(iso) {
-  if (!iso) return "—";
+  if (!iso) return "-";
   const [h, m] = String(iso).slice(11, 16).split(":");
   const hour = Number(h);
   const suffix = hour >= 12 ? "PM" : "AM";
@@ -142,11 +139,7 @@ export const DEFAULT_LOCATION = {
 
 export function locationLabel(loc) {
   if (!loc) return "";
-  return [
-    loc.name,
-    loc.admin1 && loc.admin1 !== loc.name ? loc.admin1 : null,
-    loc.country,
-  ]
+  return [loc.name, loc.admin1 && loc.admin1 !== loc.name ? loc.admin1 : null, loc.country]
     .filter(Boolean)
     .join(", ");
 }
@@ -164,10 +157,7 @@ export async function searchLocations(name, signal) {
     language: "en",
     format: "json",
   });
-  const data = await getJSON(
-    `https://geocoding-api.open-meteo.com/v1/search?${params}`,
-    signal,
-  );
+  const data = await getJSON(`https://geocoding-api.open-meteo.com/v1/search?${params}`, signal);
   return (data.results || []).map((r) => ({
     id: r.id,
     name: r.name,
@@ -194,10 +184,7 @@ export async function fetchForecast({ latitude, longitude, signal }) {
     forecast_days: "7",
   });
 
-  const data = await getJSON(
-    `https://api.open-meteo.com/v1/forecast?${params}`,
-    signal,
-  );
+  const data = await getJSON(`https://api.open-meteo.com/v1/forecast?${params}`, signal);
 
   if (!data.current || !data.daily?.time?.length) {
     throw new Error("The weather service returned an incomplete response.");

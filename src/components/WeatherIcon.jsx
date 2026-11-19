@@ -31,12 +31,5 @@ export default function WeatherIcon({
   else if (category === "snow") Icon = CloudSnow;
   else if (category === "storm") Icon = CloudLightning;
 
-  return (
-    <Icon
-      size={size}
-      strokeWidth={strokeWidth}
-      className={className}
-      aria-hidden="true"
-    />
-  );
+  return <Icon size={size} strokeWidth={strokeWidth} className={className} aria-hidden="true" />;
 }

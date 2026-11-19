@@ -37,10 +37,8 @@ const THEMES = {
 };
 
 function themeFor(category, isDay) {
-  if (category === "clear")
-    return isDay ? THEMES["clear-day"] : THEMES["clear-night"];
-  if (category === "partly")
-    return isDay ? THEMES.partly : THEMES["clear-night"];
+  if (category === "clear") return isDay ? THEMES["clear-day"] : THEMES["clear-night"];
+  if (category === "partly") return isDay ? THEMES.partly : THEMES["clear-night"];
   return THEMES[category] || THEMES["clear-day"];
 }
 
@@ -51,10 +49,10 @@ function IconButton({ label, onClick, children, active }) {
       onClick={onClick}
       title={label}
       aria-label={label}
-      className={`relative grid h-9 w-9 place-items-center rounded-full text-[#62708a] transition-all hover:-translate-y-px hover:bg-brand-orange/10 hover:text-brand-text max-[520px]:h-8 max-[520px]:w-8 ${active ? "bg-brand-orange/10 text-brand-text" : ""}`}
+      className={`hover:bg-brand-orange/10 hover:text-brand-text relative grid h-9 w-9 place-items-center rounded-full text-[#62708a] transition-all hover:-translate-y-px max-[520px]:h-8 max-[520px]:w-8 ${active ? "bg-brand-orange/10 text-brand-text" : ""}`}
     >
       {active && (
-        <span className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-brand-orange/20" />
+        <span className="bg-brand-orange/20 pointer-events-none absolute inset-0 animate-ping rounded-full" />
       )}
       {children}
     </button>
@@ -153,7 +151,7 @@ export default function App() {
     const fallback = () => {
       if (cancelled) return;
       setNotice({
-        message: "Location unavailable — showing Islamabad by default.",
+        message: "Location unavailable - showing Islamabad by default.",
         action: "location",
       });
       loadWeather({
@@ -199,8 +197,7 @@ export default function App() {
   useEffect(() => {
     if (!notificationsOpen) return undefined;
     const onPointerDown = (event) => {
-      if (!notificationRef.current?.contains(event.target))
-        setNotificationsOpen(false);
+      if (!notificationRef.current?.contains(event.target)) setNotificationsOpen(false);
     };
     const onKey = (event) => {
       if (event.key === "Escape") setNotificationsOpen(false);
@@ -258,42 +255,42 @@ export default function App() {
             }}
           />
         ))}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.26] [-webkit-mask-image:linear-gradient(to_bottom,transparent,#000_30%,transparent_92%)] [mask-image:linear-gradient(to_bottom,transparent,#000_30%,transparent_92%)]">
+        <div className="pointer-events-none absolute inset-0 mask-[linear-gradient(to_bottom,transparent,#000_30%,transparent_92%)] opacity-[0.26] [-webkit-mask-image:linear-gradient(to_bottom,transparent,#000_30%,transparent_92%)]">
           <WeatherBackdrop
             key={`${info.category}-${isDay}`}
             category={info.category}
             isDay={isDay}
           />
         </div>
-        <div className="pointer-events-none absolute -left-40 top-[16%] h-[520px] w-[340px] rotate-[-18deg] rounded-[64px] bg-brand-mint/40" />
-        <div className="pointer-events-none absolute rounded-full border border-brand-sky/30 -right-48 -top-28 h-[520px] w-[520px]" />
-        <div className="pointer-events-none absolute rounded-full border border-brand-sky/30 -bottom-[230px] left-[44%] h-[370px] w-[370px] border-brand-orange/20" />
-        <div className="pointer-events-none absolute -bottom-[120px] right-[18%] h-[280px] w-[280px] rounded-full blur-[2px] bg-[radial-gradient(circle,rgba(214,234,112,0.34),transparent_70%)]" />
-        <div className="pointer-events-none absolute -top-[100px] left-[12%] h-[220px] w-[220px] rounded-full blur-[2px] bg-[radial-gradient(circle,rgba(255,224,208,0.6),transparent_70%)]" />
+        <div className="bg-brand-mint/40 pointer-events-none absolute top-[16%] -left-40 h-130 w-85 rotate-[-18deg] rounded-[64px]" />
+        <div className="border-brand-sky/30 pointer-events-none absolute -top-28 -right-48 h-130 w-130 rounded-full border" />
+        <div className="border-brand-orange/20 pointer-events-none absolute -bottom-57.5 left-[44%] h-92.5 w-92.5 rounded-full border" />
+        <div className="pointer-events-none absolute right-[18%] -bottom-30 h-70 w-70 rounded-full bg-[radial-gradient(circle,rgba(214,234,112,0.34),transparent_70%)] blur-[2px]" />
+        <div className="pointer-events-none absolute -top-25 left-[12%] h-55 w-55 rounded-full bg-[radial-gradient(circle,rgba(255,224,208,0.6),transparent_70%)] blur-[2px]" />
       </div>
 
       {refreshing && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-0.5 overflow-hidden bg-[#D6EA70]/30">
-          <div className="animate-progress-sweep h-full w-1/3 bg-gradient-to-r from-transparent via-[#FF8129] to-transparent" />
+        <div className="bg-brand-lime/30 pointer-events-none absolute inset-x-0 top-0 z-40 h-0.5 overflow-hidden">
+          <div className="animate-progress-sweep via-brand-orange h-full w-1/3 bg-linear-to-r from-transparent to-transparent" />
         </div>
       )}
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-        <header className="mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-4 p-4 sm:grid-cols-[1fr_auto] sm:gap-x-6 sm:px-6 md:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(280px,440px)_minmax(0,1fr)] xl:gap-6 xl:px-8 xl:py-6 animate-fade-in">
+        <header className="animate-fade-in mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-4 p-4 sm:grid-cols-[1fr_auto] sm:gap-x-6 sm:px-6 md:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(280px,440px)_minmax(0,1fr)] xl:gap-6 xl:px-8 xl:py-6">
           {/* Greeting */}
           <div className="flex min-w-0 items-center gap-3.5">
             <div
-              className="grid h-[54px] w-[54px] flex-none place-items-center overflow-hidden rounded-full bg-gradient-to-br from-[#FF9B55] to-brand-orange shadow-[0_10px_24px_rgba(255,129,41,0.28)] max-[520px]:h-[46px] max-[520px]:w-[46px]"
+              className="to-brand-orange from-brand-deep shadow-brand-orange grid h-13.5 w-13.5 flex-none place-items-center overflow-hidden rounded-full bg-linear-to-br max-[520px]:h-11.5 max-[520px]:w-11.5"
               aria-hidden="true"
             >
               <User
                 strokeWidth={1.9}
-                className="h-[30px] w-[30px] text-white max-[520px]:h-[26px] max-[520px]:w-[26px]"
+                className="h-7.5 w-7.5 text-white max-[520px]:h-6.5 max-[520px]:w-6.5"
               />
             </div>
 
             <div>
-              <h1 className="text-[22px] font-bold leading-[1.1] tracking-[-0.04em] max-[520px]:text-lg">
+              <h1 className="text-[22px] leading-[1.1] font-bold tracking-[-0.04em] max-[520px]:text-lg">
                 Hello!
               </h1>
             </div>
@@ -301,24 +298,20 @@ export default function App() {
 
           {/* Search */}
           <div
-            className="w-full col-span-2 row-start-2 xl:col-span-1 xl:col-start-2 xl:row-start-1"
+            className="col-span-2 row-start-2 w-full xl:col-span-1 xl:col-start-2 xl:row-start-1"
             style={{ animationDelay: "60ms" }}
           >
-            <SearchBox
-              query={query}
-              onQueryChange={setQuery}
-              onSelect={selectLocation}
-            />
+            <SearchBox query={query} onQueryChange={setQuery} onSelect={selectLocation} />
           </div>
 
           {/* Actions */}
           <div
-            className="relative flex items-center justify-end gap-2.5 col-start-2 row-start-1 xl:col-start-3 xl:row-start-1"
+            className="relative col-start-2 row-start-1 flex items-center justify-end gap-2.5 xl:col-start-3 xl:row-start-1"
             style={{ animationDelay: "100ms" }}
           >
             {refreshing && data && (
-              <span className="absolute right-0 top-[calc(100%+8px)] z-30 flex animate-scale-in items-center gap-1.5 whitespace-nowrap rounded-full border border-white bg-white/95 px-2.5 py-1 text-10px font-semibold text-brand-ink shadow-card">
-                <OrbitSpinner className="h-3 w-3 text-brand-orange" />
+              <span className="animate-scale-in text-10px text-brand-ink shadow-card absolute top-[calc(100%+8px)] right-0 z-30 flex items-center gap-1.5 rounded-full border border-white bg-white/95 px-2.5 py-1 font-semibold whitespace-nowrap">
+                <OrbitSpinner className="text-brand-orange h-3 w-3" />
                 Updating
                 <LoadingDots />
               </span>
@@ -338,7 +331,7 @@ export default function App() {
                     key={u}
                     type="button"
                     onClick={() => setUnit(u)}
-                    className={`h-[30px] w-8 rounded-full text-11px font-bold text-brand-muted transition-all max-[520px]:w-7 ${
+                    className={`text-11px text-brand-muted h-7.5 w-8 rounded-full font-bold transition-all max-[520px]:w-7 ${
                       unit === u
                         ? "bg-brand-navy text-white shadow-[0_4px_10px_rgba(28,43,69,0.22)]"
                         : ""
@@ -350,11 +343,7 @@ export default function App() {
                 ))}
               </div>
 
-              <IconButton
-                label="Refresh weather"
-                onClick={refresh}
-                active={refreshing}
-              >
+              <IconButton label="Refresh weather" onClick={refresh} active={refreshing}>
                 <RefreshCw
                   size={17}
                   strokeWidth={1.7}
@@ -367,18 +356,18 @@ export default function App() {
             <div className="relative" ref={notificationRef}>
               <button
                 type="button"
-                className="relative grid h-11 w-11 place-items-center rounded-full border border-brand-navy/10 bg-white text-brand-navy shadow-[0_8px_22px_rgba(28,43,69,0.08)] transition-transform hover:-translate-y-0.5 max-[520px]:h-10 max-[520px]:w-10"
+                className="border-brand-navy/10 text-brand-navy relative grid h-11 w-11 place-items-center rounded-full border bg-white shadow-[0_8px_22px_rgba(28,43,69,0.08)] transition-transform hover:-translate-y-0.5 max-[520px]:h-10 max-[520px]:w-10"
                 aria-label="Notifications"
                 aria-expanded={notificationsOpen}
                 onClick={() => setNotificationsOpen((open) => !open)}
               >
                 <Bell size={18} strokeWidth={1.7} />
-                <span className="absolute right-2.5 top-2 h-[7px] w-[7px] rounded-full border-2 border-white bg-brand-orange" />
+                <span className="bg-brand-orange absolute top-2 right-2.5 h-1.75 w-1.75 rounded-full border-2 border-white" />
               </button>
 
               {notificationsOpen && (
                 <div
-                  className="absolute right-0 top-[calc(100%+10px)] z-50 flex w-[230px] flex-col gap-0.5 rounded-[14px] bg-white p-3.5 shadow-dropdown animate-slide-down"
+                  className="shadow-dropdown animate-slide-down rounded-btn absolute top-[calc(100%+10px)] right-0 z-50 flex w-57.5 flex-col gap-0.5 bg-white p-3.5"
                   role="status"
                 >
                   <strong className="text-xs">You&apos;re all caught up</strong>
@@ -391,15 +380,11 @@ export default function App() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-[1600px] flex-1 max-[350px]:p-2 px-8 pb-5 pt-2 max-[760px]:px-4 max-[760px]:pb-[18px] max-[760px]:pt-1.5">
+        <main className="mx-auto w-full max-w-[1600px] flex-1 px-8 pt-2 pb-5 max-[760px]:px-4 max-[760px]:pt-1.5 max-[760px]:pb-4.5 max-[350px]:p-2">
           {status === "loading" && !data ? (
             <DashboardSkeleton />
           ) : status === "error" && !data ? (
-            <ErrorState
-              error={error}
-              onRetry={retry}
-              onUseLocation={requestLocation}
-            />
+            <ErrorState error={error} onRetry={retry} onUseLocation={requestLocation} />
           ) : (
             <>
               {(notice || error) && (
@@ -407,11 +392,7 @@ export default function App() {
                   {notice && (
                     <NoticeBanner
                       message={notice.message}
-                      actionLabel={
-                        notice.action === "location"
-                          ? "Use my location"
-                          : undefined
-                      }
+                      actionLabel={notice.action === "location" ? "Use my location" : undefined}
                       onAction={requestLocation}
                     />
                   )}
@@ -435,7 +416,7 @@ export default function App() {
           )}
         </main>
 
-        <footer className="mx-auto w-full max-w-[1600px] px-8 pb-6 text-center text-11px text-brand-muted max-[760px]:px-4 max-[760px]:pb-5">
+        <footer className="text-11px text-brand-muted mx-auto w-full max-w-[1600px] px-8 pb-6 text-center max-[760px]:px-4 max-[760px]:pb-5">
           WEATHER · Data from Open-Meteo
           {updatedAt && data ? ` · Updated ${timeUntil(updatedAt)}` : ""}
         </footer>

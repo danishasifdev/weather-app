@@ -15,11 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { SunPath, TemperatureChart } from "./Charts";
-import {
-  AirQualityScene,
-  CurrentWeatherScene,
-  UmbrellaIllustration,
-} from "./Illustrations";
+import { AirQualityScene, CurrentWeatherScene, UmbrellaIllustration } from "./Illustrations";
 import WeatherIcon from "./WeatherIcon";
 import { LoadingDots, OrbitSpinner } from "./States";
 import {
@@ -53,9 +49,7 @@ function useCountUp(value, duration = 750) {
     let frame = 0;
     const tick = (now) => {
       const progress = Math.min(1, (now - started) / duration);
-      const next = Math.round(
-        from + (value - from) * (1 - (1 - progress) ** 3),
-      );
+      const next = Math.round(from + (value - from) * (1 - (1 - progress) ** 3));
       fromRef.current = next;
       setDisplay(next);
       if (progress < 1) frame = requestAnimationFrame(tick);
@@ -102,8 +96,7 @@ function buildSlots(hourly, unit) {
     ["Night", 22],
   ].map(([label, hour]) => {
     const item =
-      hourly.find((h) => Number(h.time.slice(11, 13)) >= hour) ||
-      hourly[hourly.length - 1];
+      hourly.find((h) => Number(h.time.slice(11, 13)) >= hour) || hourly[hourly.length - 1];
     return {
       label,
       temp: toTemp(item?.temp, unit),
@@ -131,7 +124,7 @@ function uvLabel(uv) {
 }
 
 function aqiCategory(aqi) {
-  if (aqi == null) return "—";
+  if (aqi == null) return "-";
   if (aqi <= 50) return "Good";
   if (aqi <= 150) return "Standard";
   return "Hazardous";
@@ -161,20 +154,16 @@ function daylight(isoA, isoB) {
 function StatCard({ label, value, suffix, tone, icon }) {
   return (
     <div
-      className={`min-h-[72px] min-w-0 flex flex-col items-center justify-center rounded-stat p-2.5 shadow-stat max-[760px]:px-2 max-[760px]:py-2.5 ${tone === "navy" ? "bg-brand-navy text-white" : tone === "lime" ? "bg-brand-lime text-brand-navy" : "border border-brand-navy/5 bg-white text-brand-navy"}`}
+      className={`rounded-stat shadow-stat flex min-h-18 min-w-0 flex-col items-center justify-center p-2.5 max-[760px]:px-2 max-[760px]:py-2.5 ${tone === "navy" ? "bg-brand-navy text-white" : tone === "lime" ? "bg-brand-lime text-brand-navy" : "border-brand-navy/5 text-brand-navy border bg-white"}`}
     >
-      <div className="flex items-center gap-1.5 whitespace-nowrap text-10px font-semibold opacity-80">
-        <span className="grid h-[19px] w-[19px] flex-none place-items-center">
-          {icon}
-        </span>
+      <div className="text-10px flex items-center gap-1.5 font-semibold whitespace-nowrap opacity-80">
+        <span className="grid h-5 w-5 flex-none place-items-center">{icon}</span>
         <span className="max-[350px]:hidden">{label}</span>
       </div>
-      <p className="mt-2 text-xl font-bold leading-none tracking-[-0.05em] max-[760px]:text-lg">
+      <p className="mt-2 text-xl leading-none font-bold tracking-tighter max-[760px]:text-lg">
         {value}
         {suffix && (
-          <span className="ml-0.5 text-10px font-medium tracking-normal opacity-75">
-            {suffix}
-          </span>
+          <span className="text-10px ml-0.5 font-medium tracking-normal opacity-75">{suffix}</span>
         )}
       </p>
     </div>
@@ -187,7 +176,7 @@ function ControlButton({ active, label, onClick, children }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 rounded-[14px] border border-transparent bg-[#f4f5f7] px-[11px] py-2.5 text-11px font-semibold text-brand-muted transition-all hover:bg-brand-orange hover:text-white max-[760px]:flex-1 max-[760px]:justify-center ${active ? "bg-brand-deep text-white shadow-[0_8px_18px_rgba(193,79,0,0.28)]" : ""}`}
+      className={`text-11px text-brand-muted hover:bg-brand-orange rounded-btn inline-flex items-center gap-1.5 border border-transparent bg-[#f4f5f7] px-3 py-2.5 font-semibold transition-all hover:text-white max-[760px]:flex-1 max-[760px]:justify-center ${active ? "bg-brand-deep text-white shadow-[0_8px_18px_rgba(193,79,0,0.28)]" : ""}`}
     >
       {children}
       <span className="max-[350px]:hidden">{label}</span>
@@ -208,7 +197,7 @@ function CurrentWeatherCard({ data, place, unit }) {
 
   return (
     <article
-      className="relative isolate flex min-h-[340px] flex-col justify-between overflow-hidden rounded-card p-[22px] shadow-card max-[760px]:min-h-[320px] max-[760px]:p-[18px] after:pointer-events-none after:absolute after:inset-0 after:z-[1] after:content-[''] after:bg-[linear-gradient(90deg,var(--scrim-a)_0%,var(--scrim-b)_52%,transparent_100%)] animate-fade-up"
+      className="rounded-card shadow-card animate-fade-up relative isolate flex min-h-85 flex-col justify-between overflow-hidden p-5.5 after:pointer-events-none after:absolute after:inset-0 after:z-1 after:bg-[linear-gradient(90deg,var(--scrim-a)_0%,var(--scrim-b)_52%,transparent_100%)] after:content-[''] max-[760px]:min-h-80 max-[760px]:p-4.5"
       style={{
         ...fade(50),
         "--scrim-a": onDark ? "rgba(8,14,30,0.62)" : "rgba(255,255,255,0.68)",
@@ -216,43 +205,35 @@ function CurrentWeatherCard({ data, place, unit }) {
       }}
     >
       <CurrentWeatherScene category={info.category} isDay={isDay} />
-      <div className="relative z-[2]">
+      <div className="relative z-2">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-[42px] w-[42px] flex-none place-items-center rounded-full bg-white/80 text-brand-orange shadow-[0_6px_18px_rgba(28,43,69,0.1)]">
+          <span className="text-brand-orange grid h-10.5 w-10.5 flex-none place-items-center rounded-full bg-white/80 shadow-[0_6px_18px_rgba(28,43,69,0.1)]">
             <WeatherIcon code={current.weather_code} isDay={isDay} size={24} />
           </span>
           <div className="min-w-0">
-            <p
-              className={`text-base font-bold leading-[1.05] tracking-[-0.02em] ${ink.heading}`}
-            >
+            <p className={`text-base leading-[1.05] font-bold tracking-[-0.02em] ${ink.heading}`}>
               Weather
             </p>
-            <p className={`mt-[2px] text-11px leading-[1.2] ${ink.body}`}>
-              What&apos;s the weather.
-            </p>
+            <p className={`text-11px mt-0.5 leading-[1.2] ${ink.body}`}>What&apos;s the weather.</p>
           </div>
-          <span className="ml-auto max-w-[110px] flex-none truncate rounded-full bg-white/75 px-2.5 py-1.5 text-10px font-bold text-brand-navy max-[520px]:hidden">
+          <span className="text-10px text-brand-navy ml-auto max-w-27.5 flex-none truncate rounded-full bg-white/75 px-2.5 py-1.5 font-bold max-[520px]:hidden">
             {String(place).split(",").slice(1).join(",").trim() || "Today"}
           </span>
         </div>
 
-        <div className="mt-[30px] flex items-end gap-4 max-[760px]:mt-6">
+        <div className="mt-7.5 flex items-end gap-4 max-[760px]:mt-6">
           <div
-            className={`text-[clamp(46px,4vw,62px)] font-bold leading-[0.86] tracking-[-0.065em] max-[520px]:text-[48px] ${ink.figure} ${ink.glow}`}
+            className={`text-[clamp(46px,4vw,62px)] leading-[0.86] font-bold tracking-[-0.065em] max-[520px]:text-[48px] ${ink.figure} ${ink.glow}`}
           >
             {temp ?? "--"}
-            <span className="ml-0.5 text-[0.38em] tracking-[-0.02em]">
-              °{unit}
-            </span>
+            <span className="ml-0.5 text-[0.38em] tracking-[-0.02em]">°{unit}</span>
           </div>
           <div className="pb-0.5">
-            <span className="inline-block rounded-full bg-white px-2.5 py-1.5 text-10px font-bold text-brand-navy shadow-[0_5px_14px_rgba(28,43,69,0.08)]">
+            <span className="text-10px text-brand-navy inline-block rounded-full bg-white px-2.5 py-1.5 font-bold shadow-[0_5px_14px_rgba(28,43,69,0.08)]">
               Low {toTemp(daily[0].min, unit)}°
             </span>
-            <p className={`mt-2 text-sm font-bold ${ink.figure} ${ink.glow}`}>
-              {info.label}
-            </p>
-            <p className={`mt-0.5 text-10px ${ink.body}`}>
+            <p className={`mt-2 text-sm font-bold ${ink.figure} ${ink.glow}`}>{info.label}</p>
+            <p className={`text-10px mt-0.5 ${ink.body}`}>
               Feels like {toTemp(current.apparent_temperature, unit)}° · High{" "}
               {toTemp(daily[0].max, unit)}°
             </p>
@@ -260,7 +241,7 @@ function CurrentWeatherCard({ data, place, unit }) {
         </div>
       </div>
 
-      <div className="relative z-[2] mt-[18px] grid grid-cols-3 gap-2.5 max-[760px]:gap-[7px]">
+      <div className="relative z-2 mt-4.5 grid grid-cols-3 gap-2.5 max-[760px]:gap-2">
         <StatCard
           label="Pressure"
           value={pressure || "--"}
@@ -322,39 +303,33 @@ function AirQualityCard({ air, loading, current, unit }) {
 
   return (
     <article
-      className="relative isolate flex min-h-[340px] flex-col justify-between overflow-hidden rounded-card p-[22px] shadow-card max-[760px]:min-h-[320px] max-[760px]:p-[18px] after:pointer-events-none after:absolute after:inset-0 after:z-[1] after:content-[''] after:bg-[linear-gradient(180deg,rgba(28,43,69,0.08),transparent_52%,rgba(255,255,255,0.12))] animate-fade-up"
+      className="rounded-card shadow-card animate-fade-up relative isolate flex min-h-85 flex-col justify-between overflow-hidden p-5.5 after:pointer-events-none after:absolute after:inset-0 after:z-1 after:bg-[linear-gradient(180deg,rgba(28,43,69,0.08),transparent_52%,rgba(255,255,255,0.12))] after:content-[''] max-[760px]:min-h-80 max-[760px]:p-4.5"
       style={fade(130)}
     >
       <AirQualityScene />
 
-      <div className="relative z-[2]">
+      <div className="relative z-2">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-[42px] w-[42px] flex-none place-items-center rounded-full bg-white/80 text-brand-sky shadow-[0_6px_18px_rgba(28,43,69,0.1)]">
+          <span className="text-brand-sky grid h-10.5 w-10.5 flex-none place-items-center rounded-full bg-white/80 shadow-[0_6px_18px_rgba(28,43,69,0.1)]">
             <Leaf size={22} strokeWidth={1.8} />
           </span>
           <div className="min-w-0">
-            <p
-              className={`text-base font-bold leading-[1.05] tracking-[-0.02em] ${ink.heading}`}
-            >
+            <p className={`text-base leading-[1.05] font-bold tracking-[-0.02em] ${ink.heading}`}>
               Air Quality
             </p>
-            <p className={`mt-[2px] text-11px leading-[1.2] ${ink.body}`}>
-              Main pollutant: PM 2.5
-            </p>
+            <p className={`text-11px mt-0.5 leading-[1.2] ${ink.body}`}>Main pollutant: PM 2.5</p>
           </div>
-          <span className="ml-auto max-w-[110px] flex-none truncate rounded-full bg-brand-lime px-2.5 py-1.5 text-10px font-bold text-brand-navy">
+          <span className="bg-brand-lime text-10px text-brand-navy ml-auto max-w-27.5 flex-none truncate rounded-full px-2.5 py-1.5 font-bold">
             {loading ? "Checking…" : category}
           </span>
         </div>
 
-        <div className="mt-[30px] flex items-end gap-4 max-[760px]:mt-6">
+        <div className="mt-7.5 flex items-end gap-4 max-[760px]:mt-6">
           {loading ? (
             <>
-              <OrbitSpinner className="h-[46px] w-[46px] flex-none text-brand-navy" />
-              <div className={`flex flex-col gap-1 pb-1 text-10px ${ink.body}`}>
-                <span className="text-11px font-bold tracking-[0.14em]">
-                  AQI
-                </span>
+              <OrbitSpinner className="text-brand-navy h-11.5 w-11.5 flex-none" />
+              <div className={`text-10px flex flex-col gap-1 pb-1 ${ink.body}`}>
+                <span className="text-11px font-bold tracking-[0.14em]">AQI</span>
                 <span className="flex items-center gap-1.5">
                   Reading air quality <LoadingDots />
                 </span>
@@ -363,16 +338,12 @@ function AirQualityCard({ air, loading, current, unit }) {
           ) : (
             <>
               <div
-                className={`text-[clamp(46px,4vw,62px)] font-bold leading-[0.86] tracking-[-0.065em] max-[520px]:text-[48px] ${ink.figure} [text-shadow:0_2px_10px_rgba(255,255,255,0.45)]`}
+                className={`text-[clamp(46px,4vw,62px)] leading-[0.86] font-bold tracking-[-0.065em] max-[520px]:text-[48px] ${ink.figure} [text-shadow:0_2px_10px_rgba(255,255,255,0.45)]`}
               >
                 {air?.aqi ?? "--"}
               </div>
-              <div
-                className={`flex flex-col gap-0.5 pb-1 text-10px ${ink.body}`}
-              >
-                <span className="text-11px font-bold tracking-[0.14em]">
-                  AQI
-                </span>
+              <div className={`text-10px flex flex-col gap-0.5 pb-1 ${ink.body}`}>
+                <span className="text-11px font-bold tracking-[0.14em]">AQI</span>
                 <span>
                   {air?.pm25 != null
                     ? `${Math.round(air.pm25)} µg/m³ PM2.5`
@@ -384,15 +355,15 @@ function AirQualityCard({ air, loading, current, unit }) {
         </div>
 
         <p
-          className={`mt-3.5 flex max-w-[94%] items-center gap-1.5 text-10px max-[520px]:max-w-full ${ink.body}`}
+          className={`text-10px mt-3.5 flex max-w-[94%] items-center gap-1.5 max-[520px]:max-w-full ${ink.body}`}
         >
           <Wind size={16} strokeWidth={1.8} />
-          {windDirection(current.wind_direction_10m)} wind · {wind ?? "--"}{" "}
-          {speedLabel(unit)} · {info.note}
+          {windDirection(current.wind_direction_10m)} wind · {wind ?? "--"} {speedLabel(unit)} ·{" "}
+          {info.note}
         </p>
       </div>
 
-      <div className="relative z-[2] mt-3.5 rounded-[18px] bg-white p-3.5 shadow-[0_10px_24px_rgba(28,43,69,0.12)]">
+      <div className="rounded-forecast relative z-2 mt-3.5 bg-white p-3.5 shadow-[0_10px_24px_rgba(28,43,69,0.12)]">
         <div
           role="meter"
           aria-label="Air quality index"
@@ -417,7 +388,7 @@ function AirQualityCard({ air, loading, current, unit }) {
 
             {index !== -1 && (
               <div
-                className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_2px_6px_rgba(28,43,69,0.35)] transition-[left,background-color] duration-[900ms] ease-out"
+                className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_2px_6px_rgba(28,43,69,0.35)] transition-[left,background-color] duration-900 ease-out"
                 style={{ left: `${pos}%`, backgroundColor: activeZone.color }}
               />
             )}
@@ -429,11 +400,7 @@ function AirQualityCard({ air, loading, current, unit }) {
                 key={z.label}
                 className={`text-10px transition-colors ${
                   i === 0 ? "text-left" : i === 2 ? "text-right" : "text-center"
-                } ${
-                  i === index
-                    ? "font-bold text-brand-navy"
-                    : "font-medium text-brand-muted"
-                }`}
+                } ${i === index ? "text-brand-navy font-bold" : "text-brand-muted font-medium"}`}
               >
                 {z.label}
               </span>
@@ -451,15 +418,15 @@ function TemperatureAnalytics({ hourly, unit }) {
   const slots = useMemo(() => buildSlots(hourly, unit), [hourly, unit]);
 
   return (
-    <section className="min-w-0 px-0.5 pt-1 animate-fade-up" style={fade(210)}>
+    <section className="animate-fade-up min-w-0 px-0.5 pt-1" style={fade(210)}>
       <div className="flex items-end justify-between gap-4 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-3">
         <div>
-          <h2 className="mt-1.5 text-[clamp(20px,2vw,27px)] font-bold leading-[1.15] tracking-[-0.045em]">
+          <h2 className="mt-1.5 text-[clamp(20px,2vw,27px)] leading-[1.15] font-bold tracking-[-0.045em]">
             How&apos;s the temperature today?
           </h2>
         </div>
         <div
-          className="flex flex-none gap-[7px] max-[760px]:w-full"
+          className="flex flex-none gap-2 max-[760px]:w-full"
           role="group"
           aria-label="Chart metric"
         >
@@ -470,18 +437,10 @@ function TemperatureAnalytics({ hourly, unit }) {
           >
             <Thermometer size={16} strokeWidth={1.8} />
           </ControlButton>
-          <ControlButton
-            active={mode === "rain"}
-            label="Rain"
-            onClick={() => setMode("rain")}
-          >
+          <ControlButton active={mode === "rain"} label="Rain" onClick={() => setMode("rain")}>
             <CloudRain size={16} strokeWidth={1.8} />
           </ControlButton>
-          <ControlButton
-            active={mode === "wind"}
-            label="Wind"
-            onClick={() => setMode("wind")}
-          >
+          <ControlButton active={mode === "wind"} label="Wind" onClick={() => setMode("wind")}>
             <Wind size={16} strokeWidth={1.8} />
           </ControlButton>
         </div>
@@ -497,36 +456,34 @@ function TomorrowCard({ daily, place, unit, onSelect }) {
 
   return (
     <article
-      className="relative isolate min-h-[340px] overflow-hidden rounded-card bg-[linear-gradient(145deg,#f1f8c9,#e8f3b2)] p-[22px] shadow-card before:absolute before:inset-0 before:z-0 before:content-[''] before:bg-[repeating-linear-gradient(135deg,rgba(85,181,229,0.16)_0_2px,transparent_2px_21px)] max-[900px]:min-h-[280px] animate-fade-up"
+      className="rounded-card shadow-card animate-fade-up relative isolate min-h-85 overflow-hidden bg-[linear-gradient(145deg,#f1f8c9,#e8f3b2)] p-5.5 before:absolute before:inset-0 before:z-0 before:bg-[repeating-linear-gradient(135deg,rgba(85,181,229,0.16)_0_2px,transparent_2px_21px)] before:content-[''] max-[900px]:min-h-70"
       style={fade(270)}
     >
       <UmbrellaIllustration />
-      <div className="relative z-[2] max-w-[64%] max-[520px]:max-w-[70%]">
-        <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
-          Tomorrow
-        </p>
-        <h3 className="mt-2 text-[22px] font-bold leading-[1.1] tracking-[-0.045em]">
+      <div className="relative z-2 max-w-[64%] max-[520px]:max-w-[70%]">
+        <p className="text-10px text-brand-text font-bold tracking-[0.16em] uppercase">Tomorrow</p>
+        <h3 className="mt-2 text-[22px] leading-[1.1] font-bold tracking-[-0.045em]">
           {String(place).split(",")[0]},
           <br />
           forecast
         </h3>
-        <p className="mt-3.5 text-[48px] font-bold leading-none tracking-[-0.065em]">
+        <p className="mt-3.5 text-[48px] leading-none font-bold tracking-[-0.065em]">
           {toTemp(tomorrow.max, unit)}°
         </p>
         <p className="mt-1.5 text-xs font-semibold">{info.label}</p>
-        <p className="mt-0.5 text-10px text-brand-ink">
+        <p className="text-10px text-brand-ink mt-0.5">
           Low {toTemp(tomorrow.min, unit)}° · {tomorrow.pop ?? 0}% rain
         </p>
         <button
           type="button"
           onClick={() => onSelect(1)}
-          className="mt-4 inline-flex items-center gap-1.5 border-b border-brand-navy/25 pb-0.5 text-11px font-bold text-brand-navy"
+          className="border-brand-navy/25 text-11px text-brand-navy mt-4 inline-flex items-center gap-1.5 border-b pb-0.5 font-bold"
         >
           View detailed forecast
           <ChevronRight size={14} strokeWidth={2} />
         </button>
       </div>
-      <span className="absolute bottom-4 left-[22px] z-[2] text-10px text-[#667253]">
+      <span className="text-10px absolute bottom-4 left-5.5 z-2 text-[#667253]">
         {longDayLabel(tomorrow.date)}
       </span>
     </article>
@@ -549,7 +506,7 @@ function InfoPanel({
 
   return (
     <aside
-      className="grid w-full min-w-0 grid-cols-1 gap-4 rounded-2xl bg-brand-grey p-3 shadow-[inset_0_1px_0_#fff] animate-fade-up sm:rounded-[24px] sm:p-[18px] md:grid-cols-2 md:items-stretch lg:flex lg:flex-col lg:rounded-[28px]"
+      className="bg-brand-grey animate-fade-up grid w-full min-w-0 grid-cols-1 gap-4 rounded-2xl p-3 shadow-[inset_0_1px_0_#fff] sm:rounded-[24px] sm:p-4.5 md:grid-cols-2 md:items-stretch lg:flex lg:flex-col lg:rounded-[28px]"
       style={fade(90)}
       aria-label="Current weather information"
     >
@@ -558,7 +515,7 @@ function InfoPanel({
         {/* Location + temperature card */}
         <div className="flex w-full min-w-0 flex-1 items-center justify-between gap-3 rounded-2xl bg-white/65 p-3 shadow-[0_4px_14px_rgba(28,43,69,0.04)] sm:p-4">
           <div className="w-full min-w-0">
-            <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
+            <p className="text-10px text-brand-text font-bold tracking-[0.16em] uppercase">
               {conditionName(current.weather_code, isDay)}
             </p>
 
@@ -571,12 +528,10 @@ function InfoPanel({
               <ChevronDown size={15} strokeWidth={2} className="shrink-0" />
             </button>
 
-            <p className="mt-1 text-10px text-brand-muted">
-              {localDate(utcOffsetSeconds)}
-            </p>
+            <p className="text-10px text-brand-muted mt-1">{localDate(utcOffsetSeconds)}</p>
           </div>
 
-          <div className="shrink-0 text-[clamp(30px,5vw,38px)] font-bold leading-none tracking-tight text-brand-text">
+          <div className="text-brand-text shrink-0 text-[clamp(30px,5vw,38px)] leading-none font-bold tracking-tight">
             {toTemp(current.temperature_2m, unit)}
             <span className="ml-px text-[0.44em]">°{unit}</span>
           </div>
@@ -590,25 +545,21 @@ function InfoPanel({
             </div>
           </div>
 
-          <div className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-1 rounded-2xl bg-brand-navy p-3 text-white shadow-[0_12px_26px_rgba(28,43,69,0.2)] sm:p-4">
-            <span className="row-span-2 grid h-12 w-12 shrink-0 place-items-center rounded-full text-brand-orange">
+          <div className="bg-brand-navy grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-1 rounded-2xl p-3 text-white shadow-[0_12px_26px_rgba(28,43,69,0.2)] sm:p-4">
+            <span className="text-brand-orange row-span-2 grid h-12 w-12 shrink-0 place-items-center rounded-full">
               <Sun size={40} strokeWidth={1.8} />
             </span>
 
             <div className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2">
-              <strong className="text-xl font-bold leading-none">
-                {uv} UVI
-              </strong>
+              <strong className="text-xl leading-none font-bold">{uv} UVI</strong>
 
-              <span className="whitespace-nowrap rounded-full bg-brand-lime px-2 py-1 text-10px font-bold text-brand-navy">
+              <span className="bg-brand-lime text-10px text-brand-navy rounded-full px-2 py-1 font-bold whitespace-nowrap">
                 {uvLabel(uv)}
               </span>
             </div>
 
-            <p className="w-full min-w-0 text-10px text-white/65">
-              {uv >= 6
-                ? "Use SPF 50+ protection outdoors."
-                : "Low to moderate UV exposure."}
+            <p className="text-10px w-full min-w-0 text-white/65">
+              {uv >= 6 ? "Use SPF 50+ protection outdoors." : "Low to moderate UV exposure."}
             </p>
           </div>
         </div>
@@ -618,13 +569,11 @@ function InfoPanel({
       <div className="flex w-full min-w-0 flex-col rounded-2xl bg-white/65 p-3 shadow-[0_4px_14px_rgba(28,43,69,0.04)] sm:p-4 xl:bg-transparent xl:p-0 xl:shadow-none">
         <div className="mb-3 flex w-full min-w-0 items-center justify-between gap-2.5">
           <div>
-            <h3 className="text-sm font-bold tracking-tight">
-              Weather Prediction
-            </h3>
-            <p className="mt-0.5 text-10px text-brand-muted">Daily forecast</p>
+            <h3 className="text-sm font-bold tracking-tight">Weather Prediction</h3>
+            <p className="text-10px text-brand-muted mt-0.5">Daily forecast</p>
           </div>
 
-          <span className="shrink-0 rounded-full bg-brand-grey px-2.5 py-1 text-10px font-semibold text-brand-muted">
+          <span className="bg-brand-grey text-10px text-brand-muted shrink-0 rounded-full px-2.5 py-1 font-semibold">
             Next 5 days
           </span>
         </div>
@@ -637,28 +586,22 @@ function InfoPanel({
               onClick={() => onSelect(i)}
               className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 rounded-xl bg-white px-2.5 py-2 text-left shadow-[0_6px_18px_rgba(28,43,69,0.05)] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(28,43,69,0.1)] sm:rounded-2xl sm:px-3"
             >
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#eaf7f5] to-[#eaf3fa] text-brand-sky">
+              <span className="text-brand-sky grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-linear-to-br from-[#eaf7f5] to-[#eaf3fa]">
                 <WeatherIcon code={day.code} size={22} />
               </span>
 
               <span className="flex w-full min-w-0 flex-col gap-0.5">
-                <strong className="text-xs font-bold">
-                  {dayLabel(day.date)}
-                </strong>
+                <strong className="text-xs font-bold">{dayLabel(day.date)}</strong>
 
-                <small className="truncate text-10px text-brand-muted">
+                <small className="text-10px text-brand-muted truncate">
                   {weatherInfo(day.code).label}
                 </small>
               </span>
 
               <span className="flex shrink-0 flex-col items-end gap-0.5">
-                <strong className="text-13px font-bold">
-                  {toTemp(day.max, unit)}°
-                </strong>
+                <strong className="text-13px font-bold">{toTemp(day.max, unit)}°</strong>
 
-                <small className="text-10px text-brand-muted">
-                  {toTemp(day.min, unit)}°
-                </small>
+                <small className="text-10px text-brand-muted">{toTemp(day.min, unit)}°</small>
               </span>
             </button>
           ))}
@@ -667,7 +610,7 @@ function InfoPanel({
         <button
           type="button"
           onClick={onOpenFiveDay}
-          className="mt-3 flex w-full min-w-0 items-center justify-center gap-2 rounded-xl bg-brand-deep p-2.5 text-xs font-bold text-white shadow-orange transition-transform hover:-translate-y-0.5"
+          className="bg-brand-deep shadow-orange mt-3 flex w-full min-w-0 items-center justify-center gap-2 rounded-xl p-2.5 text-xs font-bold text-white transition-transform hover:-translate-y-0.5"
         >
           <CalendarDays size={16} strokeWidth={1.8} />
           Next 5 Days
@@ -689,7 +632,7 @@ function FiveDayModal({ days, place, unit, onSelect, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-brand-navy/45 p-3 backdrop-blur-[4px] animate-fade-in sm:p-5"
+      className="bg-brand-navy/45 animate-fade-in fixed inset-0 z-80 flex items-center justify-center overflow-y-auto p-3 backdrop-blur-xs sm:p-5"
       onClick={onClose}
       role="presentation"
     >
@@ -698,17 +641,17 @@ function FiveDayModal({ days, place, unit, onSelect, onClose }) {
         aria-modal="true"
         aria-label="Next 5 days forecast"
         onClick={(event) => event.stopPropagation()}
-        className="my-auto max-h-[90dvh] w-full max-w-[560px] overflow-y-auto rounded-[24px] border border-white/70 bg-white p-5 shadow-[0_30px_90px_rgba(28,43,69,0.25)] animate-scale-in sm:rounded-[28px] sm:p-7"
+        className="animate-scale-in my-auto max-h-[90dvh] w-full max-w-140 overflow-y-auto rounded-[24px] border border-white/70 bg-white p-5 shadow-[0_30px_90px_rgba(28,43,69,0.25)] sm:rounded-[28px] sm:p-7"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
+            <p className="text-10px text-brand-text font-bold tracking-[0.16em] uppercase">
               {String(place).split(",")[0]}
             </p>
-            <h2 className="mt-1.5 text-2xl font-bold tracking-[-0.045em] text-brand-navy sm:text-[28px]">
+            <h2 className="text-brand-navy mt-1.5 text-2xl font-bold tracking-[-0.045em] sm:text-[28px]">
               Next 5 days
             </h2>
-            <p className="mt-1 text-11px text-brand-muted">
+            <p className="text-11px text-brand-muted mt-1">
               Pick a day for the full hourly forecast.
             </p>
           </div>
@@ -716,7 +659,7 @@ function FiveDayModal({ days, place, unit, onSelect, onClose }) {
             type="button"
             onClick={onClose}
             aria-label="Close 5 day forecast"
-            className="grid h-9 w-9 flex-none place-items-center rounded-full bg-brand-grey text-brand-muted transition-all hover:bg-slate-100 hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-text/40"
+            className="bg-brand-grey text-brand-muted hover:text-brand-navy focus-visible:ring-brand-text/40 grid h-9 w-9 flex-none place-items-center rounded-full transition-all hover:bg-slate-100 focus-visible:ring-2 focus-visible:outline-none"
           >
             <X size={16} strokeWidth={2} />
           </button>
@@ -728,36 +671,32 @@ function FiveDayModal({ days, place, unit, onSelect, onClose }) {
               key={day.date}
               type="button"
               onClick={() => onSelect(index)}
-              className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-[18px] border border-slate-100 bg-[#F7F9FA] p-2.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-mint hover:bg-white hover:shadow-card sm:p-3"
+              className="rounded-forecast hover:border-brand-mint hover:shadow-card grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border border-slate-100 bg-[#F7F9FA] p-2.5 text-left transition-all hover:-translate-y-0.5 hover:bg-white sm:p-3"
             >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[14px] bg-gradient-to-br from-[#eaf7f5] to-[#eaf3fa] text-brand-sky">
+              <span className="text-brand-sky rounded-btn grid h-11 w-11 shrink-0 place-items-center bg-linear-to-br from-[#eaf7f5] to-[#eaf3fa]">
                 <WeatherIcon code={day.code} size={25} />
               </span>
 
               <span className="flex min-w-0 flex-col gap-0.5">
-                <strong className="text-sm font-bold text-brand-navy">
+                <strong className="text-brand-navy text-sm font-bold">
                   {dayLabel(day.date)}
-                  <span className="ml-1.5 text-10px font-medium text-brand-muted">
+                  <span className="text-10px text-brand-muted ml-1.5 font-medium">
                     {longDayLabel(day.date).split(",")[1]?.trim() || ""}
                   </span>
                 </strong>
-                <small className="truncate text-10px text-brand-muted">
+                <small className="text-10px text-brand-muted truncate">
                   {weatherInfo(day.code).label} · {day.pop ?? 0}% rain
                 </small>
               </span>
 
               <span className="flex shrink-0 items-center gap-2">
-                <span className="text-right text-13px font-bold text-brand-navy">
+                <span className="text-13px text-brand-navy text-right font-bold">
                   {toTemp(day.max, unit)}°
-                  <span className="ml-1 text-10px font-medium text-brand-muted">
+                  <span className="text-10px text-brand-muted ml-1 font-medium">
                     {toTemp(day.min, unit)}°
                   </span>
                 </span>
-                <ChevronRight
-                  size={15}
-                  strokeWidth={2}
-                  className="shrink-0 text-brand-muted"
-                />
+                <ChevronRight size={15} strokeWidth={2} className="text-brand-muted shrink-0" />
               </span>
             </button>
           ))}
@@ -806,7 +745,7 @@ function DayDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-brand-navy/45 p-3 backdrop-blur-[4px] animate-fade-in sm:p-5"
+      className="bg-brand-navy/45 animate-fade-in fixed inset-0 z-80 flex items-center justify-center overflow-y-auto p-3 backdrop-blur-xs sm:p-5"
       onClick={onClose}
       role="presentation"
     >
@@ -815,27 +754,27 @@ function DayDetailModal({
         aria-modal="true"
         aria-label={`Details for ${longDayLabel(day.date)}`}
         onClick={(event) => event.stopPropagation()}
-        className="my-auto max-h-[90dvh] w-full max-w-[680px] overflow-y-auto rounded-[24px] border border-white/70 bg-white p-5 shadow-[0_30px_90px_rgba(28,43,69,0.25)] animate-scale-in sm:rounded-[28px] sm:p-7"
+        className="animate-scale-in my-auto max-h-[90dvh] w-full max-w-170 overflow-y-auto rounded-[24px] border border-white/70 bg-white p-5 shadow-[0_30px_90px_rgba(28,43,69,0.25)] sm:rounded-[28px] sm:p-7"
       >
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
+            <p className="text-10px text-brand-text font-bold tracking-[0.16em] uppercase">
               {longDayLabel(day.date)}
             </p>
 
             <div className="mt-3 flex items-center gap-3">
               <WeatherIcon code={day.code} size={48} />
 
-              <p className="text-[38px] font-bold leading-none tracking-[-0.065em] text-brand-navy min-[400px]:text-[42px]">
+              <p className="text-brand-navy text-[38px] leading-none font-bold tracking-[-0.065em] min-[400px]:text-[42px]">
                 {toTemp(day.max, unit)}°
-                <span className="ml-1.5 text-xl font-medium tracking-tight text-brand-muted">
+                <span className="text-brand-muted ml-1.5 text-xl font-medium tracking-tight">
                   / {toTemp(day.min, unit)}°
                 </span>
               </p>
             </div>
 
-            <p className="mt-2 text-13px font-medium text-brand-muted">
+            <p className="text-13px text-brand-muted mt-2 font-medium">
               {weatherInfo(day.code).label}
             </p>
           </div>
@@ -844,7 +783,7 @@ function DayDetailModal({
             type="button"
             onClick={onClose}
             aria-label="Close details"
-            className="grid h-9 w-9 flex-none place-items-center rounded-full bg-brand-grey text-brand-muted transition-all hover:bg-slate-100 hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-text/40"
+            className="bg-brand-grey text-brand-muted hover:text-brand-navy focus-visible:ring-brand-text/40 grid h-9 w-9 flex-none place-items-center rounded-full transition-all hover:bg-slate-100 focus-visible:ring-2 focus-visible:outline-none"
           >
             <X size={16} strokeWidth={2} />
           </button>
@@ -854,35 +793,30 @@ function DayDetailModal({
         {hours.length > 0 && (
           <section className="mt-6">
             <div className="mb-3 flex items-center justify-between gap-2">
-              <h3 className="text-xs font-bold text-brand-navy">
-                Hourly forecast
-              </h3>
+              <h3 className="text-brand-navy text-xs font-bold">Hourly forecast</h3>
 
               <span className="text-10px text-brand-muted max-[400px]:hidden">
                 {isToday ? "Next 24 hours" : "Throughout the day"}
               </span>
             </div>
 
-            <div className="flex gap-1.5 overflow-x-auto rounded-[18px] border border-slate-100 bg-[#F7F9FA] p-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="rounded-forecast flex scrollbar-none gap-1.5 overflow-x-auto border border-slate-100 bg-[#F7F9FA] p-2.5 [&::-webkit-scrollbar]:hidden">
               {hours.map((hour) => (
                 <div
                   key={hour.time}
                   className="flex w-14 flex-none flex-col items-center gap-2 rounded-xl py-2 transition-colors hover:bg-white"
                 >
-                  <span className="text-[9px] font-medium text-brand-muted">
+                  <span className="text-brand-muted text-[9px] font-medium">
                     {hourLabel(hour.time)}
                   </span>
 
                   <WeatherIcon
                     code={hour.code}
-                    isDay={
-                      hour.time.slice(11, 13) >= "06" &&
-                      hour.time.slice(11, 13) < "19"
-                    }
+                    isDay={hour.time.slice(11, 13) >= "06" && hour.time.slice(11, 13) < "19"}
                     size={22}
                   />
 
-                  <strong className="text-xs font-bold text-brand-navy">
+                  <strong className="text-brand-navy text-xs font-bold">
                     {toTemp(hour.temp, unit)}°
                   </strong>
                 </div>
@@ -894,13 +828,9 @@ function DayDetailModal({
         {/* Weather details */}
         <section className="mt-5">
           <div className="mb-3 flex items-center justify-between gap-2">
-            <h3 className="text-xs font-bold text-brand-navy">
-              Weather details
-            </h3>
+            <h3 className="text-brand-navy text-xs font-bold">Weather details</h3>
 
-            <span className="text-10px text-brand-muted max-[400px]:hidden">
-              Daily conditions
-            </span>
+            <span className="text-10px text-brand-muted max-[400px]:hidden">Daily conditions</span>
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
@@ -909,11 +839,11 @@ function DayDetailModal({
                 key={detail.label}
                 className="min-w-0 rounded-[15px] border border-slate-100 bg-[#F7F9FA] p-3 transition-colors hover:bg-white"
               >
-                <span className="block truncate text-[9px] font-semibold uppercase tracking-[0.09em] text-brand-muted">
+                <span className="text-brand-muted block truncate text-[9px] font-semibold tracking-[0.09em] uppercase">
                   {detail.label}
                 </span>
 
-                <strong className="mt-1.5 block truncate text-base font-bold tracking-tight text-brand-navy">
+                <strong className="text-brand-navy mt-1.5 block truncate text-base font-bold tracking-tight">
                   {detail.value}
                 </strong>
               </div>
@@ -923,7 +853,7 @@ function DayDetailModal({
 
         {/* Footer */}
         <div className="mt-5 border-t border-slate-100 pt-4">
-          <p className="text-center text-10px text-brand-muted">
+          <p className="text-10px text-brand-muted text-center">
             Times shown in UTC
             {utcOffsetSeconds >= 0 ? "+" : ""}
             {(utcOffsetSeconds / 3600).toFixed(1)}h
@@ -935,13 +865,7 @@ function DayDetailModal({
 }
 
 /* ── Assembled dashboard ─────────────────────────────────────────────────── */
-export default function Dashboard({
-  data,
-  place,
-  unit,
-  utcOffsetSeconds,
-  onChangeLocation,
-}) {
+export default function Dashboard({ data, place, unit, utcOffsetSeconds, onChangeLocation }) {
   const [selectedDay, setSelectedDay] = useState(null);
   const [fiveDayOpen, setFiveDayOpen] = useState(false);
   const { air, loading: airLoading } = useAirQuality(data.location);
@@ -954,25 +878,15 @@ export default function Dashboard({
 
   return (
     <>
-      <div className="grid lg:grid-cols-[minmax(0,2.85fr)_minmax(0,1fr)] gap-[22px] rounded-[32px] border border-white bg-white p-[22px] shadow-panel max-[760px]:rounded-[26px] max-[760px]:p-3.5 animate-fade-in">
-        <div className="min-w-0 flex flex-col justify-between">
-          <div className="grid grid-cols-2 gap-[18px] max-[760px]:grid-cols-1">
+      <div className="shadow-panel animate-fade-in grid gap-5.5 rounded-4xl border border-white bg-white p-5.5 max-[760px]:rounded-[26px] max-[760px]:p-3.5 lg:grid-cols-[minmax(0,2.85fr)_minmax(0,1fr)]">
+        <div className="flex min-w-0 flex-col justify-between">
+          <div className="grid grid-cols-2 gap-4.5 max-[760px]:grid-cols-1">
             <CurrentWeatherCard data={data} place={place} unit={unit} />
-            <AirQualityCard
-              air={air}
-              loading={airLoading}
-              current={data.current}
-              unit={unit}
-            />
+            <AirQualityCard air={air} loading={airLoading} current={data.current} unit={unit} />
           </div>
-          <div className="mt-[18px] grid grid-cols-[minmax(0,1.7fr)_minmax(250px,0.9fr)] items-stretch gap-[18px] max-[900px]:grid-cols-1">
+          <div className="mt-4.5 grid grid-cols-[minmax(0,1.7fr)_minmax(250px,0.9fr)] items-stretch gap-4.5 max-[900px]:grid-cols-1">
             <TemperatureAnalytics hourly={data.hourly} unit={unit} />
-            <TomorrowCard
-              daily={data.daily}
-              place={place}
-              unit={unit}
-              onSelect={setSelectedDay}
-            />
+            <TomorrowCard daily={data.daily} place={place} unit={unit} onSelect={setSelectedDay} />
           </div>
         </div>
         <InfoPanel

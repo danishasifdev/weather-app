@@ -20,9 +20,7 @@ function flagFor(code) {
   if (!code || code.length !== 2) return "📍";
 
   try {
-    return String.fromCodePoint(
-      ...[...code.toUpperCase()].map((c) => 127397 + c.charCodeAt(0)),
-    );
+    return String.fromCodePoint(...[...code.toUpperCase()].map((c) => 127397 + c.charCodeAt(0)));
   } catch {
     return "📍";
   }
@@ -36,9 +34,7 @@ function Highlight({ text, term }) {
   return (
     <>
       {text.slice(0, i)}
-      <span className="font-semibold text-brand-text">
-        {text.slice(i, i + term.length)}
-      </span>
+      <span className="text-brand-text font-semibold">{text.slice(i, i + term.length)}</span>
       {text.slice(i + term.length)}
     </>
   );
@@ -99,10 +95,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
     function onPointerDown(e) {
       const target = e.target;
 
-      if (
-        wrapperRef.current?.contains(target) ||
-        dropdownRef.current?.contains(target)
-      ) {
+      if (wrapperRef.current?.contains(target) || dropdownRef.current?.contains(target)) {
         return;
       }
 
@@ -229,7 +222,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
   return (
     <>
       <div ref={wrapperRef} className="relative z-10 w-full min-w-0">
-        <div className="flex w-full min-w-0 items-center gap-2.5 rounded-2xl border border-brand-navy/5 bg-white py-2 pl-[18px] pr-2 transition-all focus-within:border-brand-text/55 focus-within:bg-white focus-within:shadow-[0_10px_26px_rgba(28,43,69,0.08)]">
+        <div className="border-brand-navy/5 focus-within:border-brand-text/55 flex w-full min-w-0 items-center gap-2.5 rounded-2xl border bg-white py-2 pr-2 pl-4.5 transition-all focus-within:bg-white focus-within:shadow-[0_10px_26px_rgba(28,43,69,0.08)]">
           <input
             ref={inputRef}
             value={query}
@@ -239,12 +232,10 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
             placeholder="Search any location ..."
             aria-label="Search for a city"
             autoComplete="off"
-            className="min-w-0 flex-1 border-0 bg-transparent text-13px text-brand-navy outline-none placeholder:text-brand-muted"
+            className="text-13px text-brand-navy placeholder:text-brand-muted min-w-0 flex-1 border-0 bg-transparent outline-none"
           />
 
-          {searching && (
-            <OrbitSpinner className="h-[15px] w-[15px] flex-none text-brand-text" />
-          )}
+          {searching && <OrbitSpinner className="text-brand-text h-4 w-4 flex-none" />}
 
           {!searching && query && (
             <button
@@ -256,7 +247,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                 inputRef.current?.focus();
               }}
               aria-label="Clear search"
-              className="grid h-5 w-5 flex-none place-items-center rounded-full text-brand-muted transition-colors hover:bg-[#e9eef0] hover:text-brand-navy"
+              className="text-brand-muted hover:text-brand-navy grid h-5 w-5 flex-none place-items-center rounded-full transition-colors hover:bg-[#e9eef0]"
             >
               <X size={13} strokeWidth={2} />
             </button>
@@ -269,7 +260,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
               setOpen(true);
             }}
             aria-label="Search"
-            className="grid h-[34px] w-[34px] flex-none place-items-center rounded-[11px] bg-brand-deep text-white shadow-[0_6px_16px_rgba(193,79,0,0.28)] transition-transform hover:scale-105"
+            className="bg-brand-deep grid h-8.5 w-8.5 flex-none place-items-center rounded-[11px] text-white shadow-[0_6px_16px_rgba(193,79,0,0.28)] transition-transform hover:scale-105"
           >
             <Search
               size={17}
@@ -292,15 +283,15 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
               left: dropdownRect.left,
               width: dropdownRect.width,
             }}
-            className="z-[99999] overflow-hidden rounded-[18px] border border-slate-100 bg-white shadow-[0_18px_50px_rgba(28,43,69,0.18)] animate-slide-down"
+            className="rounded-forecast animate-slide-down z-99999 overflow-hidden border border-slate-100 bg-white shadow-[0_18px_50px_rgba(28,43,69,0.18)]"
           >
-            <div className="flex items-center justify-between gap-2 border-b border-[#edf0f2] px-[15px] py-[11px]">
-              <p className="truncate text-10px font-bold uppercase tracking-[0.12em] text-brand-muted">
+            <div className="flex items-center justify-between gap-2 border-b border-[#edf0f2] px-4 py-3">
+              <p className="text-10px text-brand-muted truncate font-bold tracking-[0.12em] uppercase">
                 {showingResults ? `Results for “${term}”` : "Recent searches"}
               </p>
 
               {showingResults ? (
-                <span className="flex shrink-0 items-center gap-1.5 text-10px text-[#626A78]">
+                <span className="text-10px text-brand-muted flex shrink-0 items-center gap-1.5">
                   {searching ? (
                     <>
                       Searching <LoadingDots />
@@ -314,7 +305,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                   <button
                     type="button"
                     onClick={clearRecent}
-                    className="shrink-0 text-10px text-[#626A78] transition-colors hover:text-slate-700"
+                    className="text-10px text-brand-muted shrink-0 transition-colors hover:text-slate-700"
                   >
                     Clear
                   </button>
@@ -329,14 +320,12 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs text-rose-600">
-                    {searchError}
-                  </p>
+                  <p className="truncate text-xs text-rose-600">{searchError}</p>
 
                   <button
                     type="button"
                     onClick={() => setRetry((n) => n + 1)}
-                    className="mt-1 text-11px font-medium text-[#2d8f9b] transition-colors hover:text-[#1a2841]"
+                    className="text-11px mt-1 font-medium text-[#2d8f9b] transition-colors hover:text-[#1a2841]"
                   >
                     Try again
                   </button>
@@ -347,16 +336,13 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                 {[0, 1, 2].map((i) => (
                   <div
                     key={i}
-                    className="relative h-11 w-full overflow-hidden rounded-xl bg-[#e9edf0] after:absolute after:inset-0 after:-translate-x-full after:animate-shimmer after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.85),transparent)] after:content-[''] after:[animation-delay:var(--shimmer-delay)]"
+                    className="after:animate-shimmer relative h-11 w-full overflow-hidden rounded-xl bg-[#e9edf0] after:absolute after:inset-0 after:-translate-x-full after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.85),transparent)] after:content-[''] after:[animation-delay:var(--shimmer-delay)]"
                     style={{ "--shimmer-delay": `${i * 140}ms` }}
                   />
                 ))}
               </div>
             ) : list.length ? (
-              <ul
-                className="max-h-72 overflow-y-auto overscroll-contain p-1.5"
-                role="listbox"
-              >
+              <ul className="max-h-72 overflow-y-auto overscroll-contain p-1.5" role="listbox">
                 {list.map((r, i) => (
                   <li key={`${r.id || "r"}-${r.latitude}-${r.longitude}`}>
                     <button
@@ -366,9 +352,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                       onMouseEnter={() => setActive(i)}
                       onClick={() => select(r)}
                       className={`group flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left transition-colors ${
-                        i === active
-                          ? "bg-brand-orange/10"
-                          : "hover:bg-slate-50"
+                        i === active ? "bg-brand-orange/10" : "hover:bg-slate-50"
                       }`}
                     >
                       <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-slate-100 text-lg">
@@ -377,15 +361,11 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
 
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm text-slate-800">
-                          <Highlight
-                            text={r.name}
-                            term={showingResults ? term : ""}
-                          />
+                          <Highlight text={r.name} term={showingResults ? term : ""} />
                         </span>
 
-                        <span className="block truncate text-11px text-[#626A78]">
-                          {[r.admin1, r.country].filter(Boolean).join(", ") ||
-                            "City"}
+                        <span className="text-11px text-brand-muted block truncate">
+                          {[r.admin1, r.country].filter(Boolean).join(", ") || "City"}
                         </span>
                       </span>
 
@@ -399,7 +379,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                       )}
 
                       {showingResults && r.countryCode && (
-                        <span className="shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 text-10px font-medium tracking-wide text-slate-500">
+                        <span className="text-10px shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 font-medium tracking-wide text-slate-500">
                           {r.countryCode}
                         </span>
                       )}
@@ -410,13 +390,13 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
             ) : (
               <div className="px-4 py-6 text-center">
                 <p className="text-sm text-slate-700">No cities found</p>
-                <p className="mt-1 text-11px text-[#626A78]">
+                <p className="text-11px text-brand-muted mt-1">
                   Try a shorter name or check the spelling.
                 </p>
               </div>
             )}
 
-            <div className="hidden items-center justify-between border-t border-slate-100 px-4 py-2 text-10px text-[#626A78] sm:flex">
+            <div className="text-10px text-brand-muted hidden items-center justify-between border-t border-slate-100 px-4 py-2 sm:flex">
               <span>↑↓ navigate · ↵ select · esc close</span>
               <span className="text-[8px]">Powered by Open-Meteo</span>
             </div>
