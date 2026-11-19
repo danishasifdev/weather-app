@@ -29,6 +29,11 @@ export default {
           "sans-serif",
         ],
       },
+      fontSize: {
+        "10px": "10px",
+        "11px": "11px",
+        "13px": "13px",
+      },
       borderRadius: {
         card: "24px",
         stat: "16px",
@@ -37,7 +42,8 @@ export default {
       },
       boxShadow: {
         card: "0 12px 30px rgba(28, 43, 69, 0.08)",
-        panel: "0 30px 80px rgba(28, 43, 69, 0.10), 0 2px 8px rgba(28, 43, 69, 0.04)",
+        panel:
+          "0 30px 80px rgba(28, 43, 69, 0.10), 0 2px 8px rgba(28, 43, 69, 0.04)",
         stat: "0 8px 20px rgba(28, 43, 69, 0.09)",
         orange: "0 10px 22px rgba(193, 79, 0, 0.26)",
         dropdown: "0 22px 50px rgba(28, 43, 69, 0.18)",

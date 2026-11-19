@@ -15,7 +15,10 @@ function Shimmer({ className = "", delay = 0, style }) {
 /** Three gently bouncing dots for inline "working on it" copy. */
 export function LoadingDots({ className = "" }) {
   return (
-    <span className={`inline-flex items-end gap-1 ${className}`} aria-hidden="true">
+    <span
+      className={`inline-flex items-end gap-1 ${className}`}
+      aria-hidden="true"
+    >
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -93,7 +96,10 @@ export function WeatherLoader({ className = "" }) {
           strokeOpacity="0.45"
           strokeWidth="3"
         />
-        <g className="animate-loader-spin" style={{ transformOrigin: "48px 48px" }}>
+        <g
+          className="animate-loader-spin"
+          style={{ transformOrigin: "48px 48px" }}
+        >
           <circle
             cx="48"
             cy="48"
@@ -107,7 +113,10 @@ export function WeatherLoader({ className = "" }) {
         </g>
 
         {/* Sun rays + core */}
-        <g className="animate-loader-spin" style={{ transformOrigin: "48px 48px", animationDuration: "12s" }}>
+        <g
+          className="animate-loader-spin"
+          style={{ transformOrigin: "48px 48px", animationDuration: "12s" }}
+        >
           {Array.from({ length: 8 }, (_, i) => {
             const a = (i * Math.PI) / 4;
             return (
@@ -179,7 +188,10 @@ export function DashboardSkeleton() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setStep((n) => (n + 1) % LOADING_LINES.length), 1400);
+    const id = setInterval(
+      () => setStep((n) => (n + 1) % LOADING_LINES.length),
+      1400,
+    );
     return () => clearInterval(id);
   }, []);
 
@@ -214,8 +226,14 @@ export function DashboardSkeleton() {
                   />
                 )}
                 <Shimmer className="h-10 w-10 rounded-full" delay={card * 90} />
-                <Shimmer className="mt-8 h-4 w-28 rounded-xl" delay={card * 90 + 120} />
-                <Shimmer className="mt-4 h-16 w-40 rounded-2xl" delay={card * 90 + 240} />
+                <Shimmer
+                  className="mt-8 h-4 w-28 rounded-xl"
+                  delay={card * 90 + 120}
+                />
+                <Shimmer
+                  className="mt-4 h-16 w-40 rounded-2xl"
+                  delay={card * 90 + 240}
+                />
                 <div className="mt-8 grid grid-cols-3 gap-2">
                   {[0, 1, 2].map((i) => (
                     <Shimmer
@@ -246,7 +264,7 @@ export function DashboardSkeleton() {
 
       <div className="mt-6 flex flex-col items-center gap-1.5">
         <WeatherLoader />
-        <p className="flex items-center gap-2 text-[12px] font-semibold text-brand-ink">
+        <p className="flex items-center gap-2 text-xs font-semibold text-brand-ink">
           <span>{LOADING_LINES[step]}</span>
           <LoadingDots />
         </p>
@@ -258,7 +276,7 @@ export function DashboardSkeleton() {
 export function ErrorState({ error, onRetry, onUseLocation }) {
   return (
     <div className="animate-fade-up mx-auto flex min-h-[70vh] w-full max-w-lg flex-col items-center justify-center px-4 text-center">
-      <div className="rounded-[18px] bg-white p-3.5 px-4 shadow-[0_12px_30px_rgba(28,43,69,0.08)] mb-7 grid h-24 w-24 place-items-center rounded-[28px] text-[#B84D00]">
+      <div className="rounded-[18px] bg-white p-3.5 px-4 shadow-[0_12px_30px_rgba(28,43,69,0.08)] mb-7 grid h-24 w-24 place-items-center text-[#B84D00]">
         <CloudOff size={44} strokeWidth={1.6} aria-hidden="true" />
       </div>
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#B84D00]">
@@ -275,14 +293,14 @@ export function ErrorState({ error, onRetry, onUseLocation }) {
         <button
           type="button"
           onClick={onRetry}
-          className="rounded-full bg-brand-deep px-6 py-3 text-[13px] font-bold text-white shadow-orange"
+          className="rounded-full bg-brand-deep px-6 py-3 text-13px font-bold text-white shadow-orange"
         >
           Try again
         </button>
         <button
           type="button"
           onClick={onUseLocation}
-          className="rounded-full border border-brand-navy/10 bg-white px-6 py-3 text-[13px] font-semibold text-brand-navy"
+          className="rounded-full border border-brand-navy/10 bg-white px-6 py-3 text-13px font-semibold text-brand-navy"
         >
           Use my location
         </button>

@@ -101,18 +101,18 @@ export function SunPath({ sunrise, sunset, now = new Date() }) {
 
       <div className="mt-3 flex items-start justify-between gap-2">
         <div className="flex flex-col gap-0.5">
-          <span className="text-[10px] text-brand-muted">Sunrise</span>
+          <span className="text-10px text-brand-muted">Sunrise</span>
           <strong className="text-xs font-bold">{clockLabel(sunrise)}</strong>
         </div>
 
         {hasTimes && (
-          <span className="text-center text-[10px] text-brand-muted">
+          <span className="text-center text-10px text-brand-muted">
             Daylight peak {pad(Math.floor(mid / 60))}:{pad(mid % 60)}
           </span>
         )}
 
         <div className="flex flex-col gap-0.5 text-right">
-          <span className="text-[10px] text-brand-muted">Sunset</span>
+          <span className="text-10px text-brand-muted">Sunset</span>
           <strong className="text-xs font-bold">{clockLabel(sunset)}</strong>
         </div>
       </div>
@@ -283,7 +283,7 @@ export function TemperatureChart({ slots, mode = "temperature", unit = "C" }) {
               {displayValue(slot, mode, unit)}
             </strong>
 
-            <span className="text-[13px] font-medium text-brand-muted">
+            <span className="text-13px font-medium text-brand-muted">
               {slot.label}
             </span>
           </div>

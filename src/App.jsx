@@ -293,7 +293,7 @@ export default function App() {
             </div>
 
             <div>
-              <h1 className="text-[22px] font-bold leading-[1.1] tracking-[-0.04em] max-[520px]:text-[18px]">
+              <h1 className="text-[22px] font-bold leading-[1.1] tracking-[-0.04em] max-[520px]:text-lg">
                 Hello!
               </h1>
             </div>
@@ -317,7 +317,7 @@ export default function App() {
             style={{ animationDelay: "100ms" }}
           >
             {refreshing && data && (
-              <span className="absolute right-0 top-[calc(100%+8px)] z-30 flex animate-scale-in items-center gap-1.5 whitespace-nowrap rounded-full border border-white bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-brand-ink shadow-card">
+              <span className="absolute right-0 top-[calc(100%+8px)] z-30 flex animate-scale-in items-center gap-1.5 whitespace-nowrap rounded-full border border-white bg-white/95 px-2.5 py-1 text-10px font-semibold text-brand-ink shadow-card">
                 <OrbitSpinner className="h-3 w-3 text-brand-orange" />
                 Updating
                 <LoadingDots />
@@ -338,7 +338,7 @@ export default function App() {
                     key={u}
                     type="button"
                     onClick={() => setUnit(u)}
-                    className={`h-[30px] w-8 rounded-full text-[11px] font-bold text-brand-muted transition-all max-[520px]:w-7 ${
+                    className={`h-[30px] w-8 rounded-full text-11px font-bold text-brand-muted transition-all max-[520px]:w-7 ${
                       unit === u
                         ? "bg-brand-navy text-white shadow-[0_4px_10px_rgba(28,43,69,0.22)]"
                         : ""
@@ -382,7 +382,7 @@ export default function App() {
                   role="status"
                 >
                   <strong className="text-xs">You&apos;re all caught up</strong>
-                  <span className="text-[11px] text-brand-muted">
+                  <span className="text-11px text-brand-muted">
                     No new weather alerts right now.
                   </span>
                 </div>
@@ -435,8 +435,8 @@ export default function App() {
           )}
         </main>
 
-        <footer className="mx-auto w-full max-w-[1600px] px-8 pb-6 text-center text-[11px] text-brand-muted max-[760px]:px-4 max-[760px]:pb-5">
-          AETHER · Data from Open-Meteo
+        <footer className="mx-auto w-full max-w-[1600px] px-8 pb-6 text-center text-11px text-brand-muted max-[760px]:px-4 max-[760px]:pb-5">
+          WEATHER · Data from Open-Meteo
           {updatedAt && data ? ` · Updated ${timeUntil(updatedAt)}` : ""}
         </footer>
       </div>

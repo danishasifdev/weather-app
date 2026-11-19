@@ -163,16 +163,16 @@ function StatCard({ label, value, suffix, tone, icon }) {
     <div
       className={`min-h-[72px] min-w-0 flex flex-col items-center justify-center rounded-stat p-2.5 shadow-stat max-[760px]:px-2 max-[760px]:py-2.5 ${tone === "navy" ? "bg-brand-navy text-white" : tone === "lime" ? "bg-brand-lime text-brand-navy" : "border border-brand-navy/5 bg-white text-brand-navy"}`}
     >
-      <div className="flex items-center gap-1.5 whitespace-nowrap text-[10px] font-semibold opacity-80">
+      <div className="flex items-center gap-1.5 whitespace-nowrap text-10px font-semibold opacity-80">
         <span className="grid h-[19px] w-[19px] flex-none place-items-center">
           {icon}
         </span>
         <span className="max-[350px]:hidden">{label}</span>
       </div>
-      <p className="mt-2 text-xl font-bold leading-none tracking-[-0.05em] max-[760px]:text-[18px]">
+      <p className="mt-2 text-xl font-bold leading-none tracking-[-0.05em] max-[760px]:text-lg">
         {value}
         {suffix && (
-          <span className="ml-0.5 text-[10px] font-medium tracking-normal opacity-75">
+          <span className="ml-0.5 text-10px font-medium tracking-normal opacity-75">
             {suffix}
           </span>
         )}
@@ -187,7 +187,7 @@ function ControlButton({ active, label, onClick, children }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 rounded-[14px] border border-transparent bg-[#f4f5f7] px-[11px] py-2.5 text-[11px] font-semibold text-brand-muted transition-all hover:bg-brand-orange hover:text-white max-[760px]:flex-1 max-[760px]:justify-center ${active ? "bg-brand-deep text-white shadow-[0_8px_18px_rgba(193,79,0,0.28)]" : ""}`}
+      className={`inline-flex items-center gap-1.5 rounded-[14px] border border-transparent bg-[#f4f5f7] px-[11px] py-2.5 text-11px font-semibold text-brand-muted transition-all hover:bg-brand-orange hover:text-white max-[760px]:flex-1 max-[760px]:justify-center ${active ? "bg-brand-deep text-white shadow-[0_8px_18px_rgba(193,79,0,0.28)]" : ""}`}
     >
       {children}
       <span className="max-[350px]:hidden">{label}</span>
@@ -227,13 +227,11 @@ function CurrentWeatherCard({ data, place, unit }) {
             >
               Weather
             </p>
-            <p
-              className={`mt-[2px] text-[11px] leading-[1.2] ${ink.body}`}
-            >
+            <p className={`mt-[2px] text-11px leading-[1.2] ${ink.body}`}>
               What&apos;s the weather.
             </p>
           </div>
-          <span className="ml-auto max-w-[110px] flex-none truncate rounded-full bg-white/75 px-2.5 py-1.5 text-[10px] font-bold text-brand-navy max-[520px]:hidden">
+          <span className="ml-auto max-w-[110px] flex-none truncate rounded-full bg-white/75 px-2.5 py-1.5 text-10px font-bold text-brand-navy max-[520px]:hidden">
             {String(place).split(",").slice(1).join(",").trim() || "Today"}
           </span>
         </div>
@@ -248,13 +246,13 @@ function CurrentWeatherCard({ data, place, unit }) {
             </span>
           </div>
           <div className="pb-0.5">
-            <span className="inline-block rounded-full bg-white px-2.5 py-1.5 text-[10px] font-bold text-brand-navy shadow-[0_5px_14px_rgba(28,43,69,0.08)]">
+            <span className="inline-block rounded-full bg-white px-2.5 py-1.5 text-10px font-bold text-brand-navy shadow-[0_5px_14px_rgba(28,43,69,0.08)]">
               Low {toTemp(daily[0].min, unit)}°
             </span>
             <p className={`mt-2 text-sm font-bold ${ink.figure} ${ink.glow}`}>
               {info.label}
             </p>
-            <p className={`mt-0.5 text-[10px] ${ink.body}`}>
+            <p className={`mt-0.5 text-10px ${ink.body}`}>
               Feels like {toTemp(current.apparent_temperature, unit)}° · High{" "}
               {toTemp(daily[0].max, unit)}°
             </p>
@@ -340,11 +338,11 @@ function AirQualityCard({ air, loading, current, unit }) {
             >
               Air Quality
             </p>
-            <p className={`mt-[2px] text-[11px] leading-[1.2] ${ink.body}`}>
+            <p className={`mt-[2px] text-11px leading-[1.2] ${ink.body}`}>
               Main pollutant: PM 2.5
             </p>
           </div>
-          <span className="ml-auto max-w-[110px] flex-none truncate rounded-full bg-brand-lime px-2.5 py-1.5 text-[10px] font-bold text-brand-navy">
+          <span className="ml-auto max-w-[110px] flex-none truncate rounded-full bg-brand-lime px-2.5 py-1.5 text-10px font-bold text-brand-navy">
             {loading ? "Checking…" : category}
           </span>
         </div>
@@ -353,8 +351,10 @@ function AirQualityCard({ air, loading, current, unit }) {
           {loading ? (
             <>
               <OrbitSpinner className="h-[46px] w-[46px] flex-none text-brand-navy" />
-              <div className={`flex flex-col gap-1 pb-1 text-[10px] ${ink.body}`}>
-                <span className="text-[11px] font-bold tracking-[0.14em]">AQI</span>
+              <div className={`flex flex-col gap-1 pb-1 text-10px ${ink.body}`}>
+                <span className="text-11px font-bold tracking-[0.14em]">
+                  AQI
+                </span>
                 <span className="flex items-center gap-1.5">
                   Reading air quality <LoadingDots />
                 </span>
@@ -367,8 +367,12 @@ function AirQualityCard({ air, loading, current, unit }) {
               >
                 {air?.aqi ?? "--"}
               </div>
-              <div className={`flex flex-col gap-0.5 pb-1 text-[10px] ${ink.body}`}>
-                <span className="text-[11px] font-bold tracking-[0.14em]">AQI</span>
+              <div
+                className={`flex flex-col gap-0.5 pb-1 text-10px ${ink.body}`}
+              >
+                <span className="text-11px font-bold tracking-[0.14em]">
+                  AQI
+                </span>
                 <span>
                   {air?.pm25 != null
                     ? `${Math.round(air.pm25)} µg/m³ PM2.5`
@@ -380,7 +384,7 @@ function AirQualityCard({ air, loading, current, unit }) {
         </div>
 
         <p
-          className={`mt-3.5 flex max-w-[94%] items-center gap-1.5 text-[10px] max-[520px]:max-w-full ${ink.body}`}
+          className={`mt-3.5 flex max-w-[94%] items-center gap-1.5 text-10px max-[520px]:max-w-full ${ink.body}`}
         >
           <Wind size={16} strokeWidth={1.8} />
           {windDirection(current.wind_direction_10m)} wind · {wind ?? "--"}{" "}
@@ -423,7 +427,7 @@ function AirQualityCard({ air, loading, current, unit }) {
             {ZONES.map((z, i) => (
               <span
                 key={z.label}
-                className={`text-[10px] transition-colors ${
+                className={`text-10px transition-colors ${
                   i === 0 ? "text-left" : i === 2 ? "text-right" : "text-center"
                 } ${
                   i === index
@@ -498,7 +502,7 @@ function TomorrowCard({ daily, place, unit, onSelect }) {
     >
       <UmbrellaIllustration />
       <div className="relative z-[2] max-w-[64%] max-[520px]:max-w-[70%]">
-        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-text">
+        <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
           Tomorrow
         </p>
         <h3 className="mt-2 text-[22px] font-bold leading-[1.1] tracking-[-0.045em]">
@@ -510,19 +514,19 @@ function TomorrowCard({ daily, place, unit, onSelect }) {
           {toTemp(tomorrow.max, unit)}°
         </p>
         <p className="mt-1.5 text-xs font-semibold">{info.label}</p>
-        <p className="mt-0.5 text-[10px] text-brand-ink">
+        <p className="mt-0.5 text-10px text-brand-ink">
           Low {toTemp(tomorrow.min, unit)}° · {tomorrow.pop ?? 0}% rain
         </p>
         <button
           type="button"
           onClick={() => onSelect(1)}
-          className="mt-4 inline-flex items-center gap-1.5 border-b border-brand-navy/25 pb-0.5 text-[11px] font-bold text-brand-navy"
+          className="mt-4 inline-flex items-center gap-1.5 border-b border-brand-navy/25 pb-0.5 text-11px font-bold text-brand-navy"
         >
           View detailed forecast
           <ChevronRight size={14} strokeWidth={2} />
         </button>
       </div>
-      <span className="absolute bottom-4 left-[22px] z-[2] text-[10px] text-[#667253]">
+      <span className="absolute bottom-4 left-[22px] z-[2] text-10px text-[#667253]">
         {longDayLabel(tomorrow.date)}
       </span>
     </article>
@@ -554,7 +558,7 @@ function InfoPanel({
         {/* Location + temperature card */}
         <div className="flex w-full min-w-0 flex-1 items-center justify-between gap-3 rounded-2xl bg-white/65 p-3 shadow-[0_4px_14px_rgba(28,43,69,0.04)] sm:p-4">
           <div className="w-full min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-text">
+            <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
               {conditionName(current.weather_code, isDay)}
             </p>
 
@@ -567,7 +571,7 @@ function InfoPanel({
               <ChevronDown size={15} strokeWidth={2} className="shrink-0" />
             </button>
 
-            <p className="mt-1 text-[10px] text-brand-muted">
+            <p className="mt-1 text-10px text-brand-muted">
               {localDate(utcOffsetSeconds)}
             </p>
           </div>
@@ -596,12 +600,12 @@ function InfoPanel({
                 {uv} UVI
               </strong>
 
-              <span className="whitespace-nowrap rounded-full bg-brand-lime px-2 py-1 text-[10px] font-bold text-brand-navy">
+              <span className="whitespace-nowrap rounded-full bg-brand-lime px-2 py-1 text-10px font-bold text-brand-navy">
                 {uvLabel(uv)}
               </span>
             </div>
 
-            <p className="w-full min-w-0 text-[10px] text-white/65">
+            <p className="w-full min-w-0 text-10px text-white/65">
               {uv >= 6
                 ? "Use SPF 50+ protection outdoors."
                 : "Low to moderate UV exposure."}
@@ -617,12 +621,10 @@ function InfoPanel({
             <h3 className="text-sm font-bold tracking-tight">
               Weather Prediction
             </h3>
-            <p className="mt-0.5 text-[10px] text-brand-muted">
-              Daily forecast
-            </p>
+            <p className="mt-0.5 text-10px text-brand-muted">Daily forecast</p>
           </div>
 
-          <span className="shrink-0 rounded-full bg-brand-grey px-2.5 py-1 text-[10px] font-semibold text-brand-muted">
+          <span className="shrink-0 rounded-full bg-brand-grey px-2.5 py-1 text-10px font-semibold text-brand-muted">
             Next 5 days
           </span>
         </div>
@@ -644,17 +646,17 @@ function InfoPanel({
                   {dayLabel(day.date)}
                 </strong>
 
-                <small className="truncate text-[10px] text-brand-muted">
+                <small className="truncate text-10px text-brand-muted">
                   {weatherInfo(day.code).label}
                 </small>
               </span>
 
               <span className="flex shrink-0 flex-col items-end gap-0.5">
-                <strong className="text-[13px] font-bold">
+                <strong className="text-13px font-bold">
                   {toTemp(day.max, unit)}°
                 </strong>
 
-                <small className="text-[10px] text-brand-muted">
+                <small className="text-10px text-brand-muted">
                   {toTemp(day.min, unit)}°
                 </small>
               </span>
@@ -700,13 +702,13 @@ function FiveDayModal({ days, place, unit, onSelect, onClose }) {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-text">
+            <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
               {String(place).split(",")[0]}
             </p>
             <h2 className="mt-1.5 text-2xl font-bold tracking-[-0.045em] text-brand-navy sm:text-[28px]">
               Next 5 days
             </h2>
-            <p className="mt-1 text-[11px] text-brand-muted">
+            <p className="mt-1 text-11px text-brand-muted">
               Pick a day for the full hourly forecast.
             </p>
           </div>
@@ -735,19 +737,19 @@ function FiveDayModal({ days, place, unit, onSelect, onClose }) {
               <span className="flex min-w-0 flex-col gap-0.5">
                 <strong className="text-sm font-bold text-brand-navy">
                   {dayLabel(day.date)}
-                  <span className="ml-1.5 text-[10px] font-medium text-brand-muted">
+                  <span className="ml-1.5 text-10px font-medium text-brand-muted">
                     {longDayLabel(day.date).split(",")[1]?.trim() || ""}
                   </span>
                 </strong>
-                <small className="truncate text-[10px] text-brand-muted">
+                <small className="truncate text-10px text-brand-muted">
                   {weatherInfo(day.code).label} · {day.pop ?? 0}% rain
                 </small>
               </span>
 
               <span className="flex shrink-0 items-center gap-2">
-                <span className="text-right text-[13px] font-bold text-brand-navy">
+                <span className="text-right text-13px font-bold text-brand-navy">
                   {toTemp(day.max, unit)}°
-                  <span className="ml-1 text-[10px] font-medium text-brand-muted">
+                  <span className="ml-1 text-10px font-medium text-brand-muted">
                     {toTemp(day.min, unit)}°
                   </span>
                 </span>
@@ -818,7 +820,7 @@ function DayDetailModal({
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-text">
+            <p className="text-10px font-bold uppercase tracking-[0.16em] text-brand-text">
               {longDayLabel(day.date)}
             </p>
 
@@ -833,7 +835,7 @@ function DayDetailModal({
               </p>
             </div>
 
-            <p className="mt-2 text-[13px] font-medium text-brand-muted">
+            <p className="mt-2 text-13px font-medium text-brand-muted">
               {weatherInfo(day.code).label}
             </p>
           </div>
@@ -856,7 +858,7 @@ function DayDetailModal({
                 Hourly forecast
               </h3>
 
-              <span className="text-[10px] text-brand-muted max-[400px]:hidden">
+              <span className="text-10px text-brand-muted max-[400px]:hidden">
                 {isToday ? "Next 24 hours" : "Throughout the day"}
               </span>
             </div>
@@ -896,7 +898,7 @@ function DayDetailModal({
               Weather details
             </h3>
 
-            <span className="text-[10px] text-brand-muted max-[400px]:hidden">
+            <span className="text-10px text-brand-muted max-[400px]:hidden">
               Daily conditions
             </span>
           </div>
@@ -921,7 +923,7 @@ function DayDetailModal({
 
         {/* Footer */}
         <div className="mt-5 border-t border-slate-100 pt-4">
-          <p className="text-center text-[10px] text-brand-muted">
+          <p className="text-center text-10px text-brand-muted">
             Times shown in UTC
             {utcOffsetSeconds >= 0 ? "+" : ""}
             {(utcOffsetSeconds / 3600).toFixed(1)}h
@@ -943,9 +945,7 @@ export default function Dashboard({
   const [selectedDay, setSelectedDay] = useState(null);
   const [fiveDayOpen, setFiveDayOpen] = useState(false);
   const { air, loading: airLoading } = useAirQuality(data.location);
-  const fiveDays = data.daily
-    .slice(0, 5)
-    .map((day, i) => ({ day, index: i }));
+  const fiveDays = data.daily.slice(0, 5).map((day, i) => ({ day, index: i }));
 
   useEffect(() => {
     setSelectedDay(null);

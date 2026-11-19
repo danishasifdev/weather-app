@@ -5,7 +5,7 @@ import { Clock, Search, X } from "lucide-react";
 import { searchLocations } from "../lib/weather";
 import { LoadingDots, OrbitSpinner } from "./States";
 
-const RECENT_KEY = "aether-recent-cities";
+const RECENT_KEY = "weather-recent-cities";
 
 function readRecent() {
   try {
@@ -239,7 +239,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
             placeholder="Search any location ..."
             aria-label="Search for a city"
             autoComplete="off"
-            className="min-w-0 flex-1 border-0 bg-transparent text-[13px] text-brand-navy outline-none placeholder:text-brand-muted"
+            className="min-w-0 flex-1 border-0 bg-transparent text-13px text-brand-navy outline-none placeholder:text-brand-muted"
           />
 
           {searching && (
@@ -295,12 +295,12 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
             className="z-[99999] overflow-hidden rounded-[18px] border border-slate-100 bg-white shadow-[0_18px_50px_rgba(28,43,69,0.18)] animate-slide-down"
           >
             <div className="flex items-center justify-between gap-2 border-b border-[#edf0f2] px-[15px] py-[11px]">
-              <p className="truncate text-[10px] font-bold uppercase tracking-[0.12em] text-brand-muted">
+              <p className="truncate text-10px font-bold uppercase tracking-[0.12em] text-brand-muted">
                 {showingResults ? `Results for “${term}”` : "Recent searches"}
               </p>
 
               {showingResults ? (
-                <span className="flex shrink-0 items-center gap-1.5 text-[10px] text-[#626A78]">
+                <span className="flex shrink-0 items-center gap-1.5 text-10px text-[#626A78]">
                   {searching ? (
                     <>
                       Searching <LoadingDots />
@@ -314,7 +314,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                   <button
                     type="button"
                     onClick={clearRecent}
-                    className="shrink-0 text-[10px] text-[#626A78] transition-colors hover:text-slate-700"
+                    className="shrink-0 text-10px text-[#626A78] transition-colors hover:text-slate-700"
                   >
                     Clear
                   </button>
@@ -336,7 +336,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                   <button
                     type="button"
                     onClick={() => setRetry((n) => n + 1)}
-                    className="mt-1 text-[11px] font-medium text-[#2d8f9b] transition-colors hover:text-[#1a2841]"
+                    className="mt-1 text-11px font-medium text-[#2d8f9b] transition-colors hover:text-[#1a2841]"
                   >
                     Try again
                   </button>
@@ -383,7 +383,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                           />
                         </span>
 
-                        <span className="block truncate text-[11px] text-[#626A78]">
+                        <span className="block truncate text-11px text-[#626A78]">
                           {[r.admin1, r.country].filter(Boolean).join(", ") ||
                             "City"}
                         </span>
@@ -399,7 +399,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                       )}
 
                       {showingResults && r.countryCode && (
-                        <span className="shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-slate-500">
+                        <span className="shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 text-10px font-medium tracking-wide text-slate-500">
                           {r.countryCode}
                         </span>
                       )}
@@ -410,13 +410,13 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
             ) : (
               <div className="px-4 py-6 text-center">
                 <p className="text-sm text-slate-700">No cities found</p>
-                <p className="mt-1 text-[11px] text-[#626A78]">
+                <p className="mt-1 text-11px text-[#626A78]">
                   Try a shorter name or check the spelling.
                 </p>
               </div>
             )}
 
-            <div className="hidden items-center justify-between border-t border-slate-100 px-4 py-2 text-[10px] text-[#626A78] sm:flex">
+            <div className="hidden items-center justify-between border-t border-slate-100 px-4 py-2 text-10px text-[#626A78] sm:flex">
               <span>↑↓ navigate · ↵ select · esc close</span>
               <span className="text-[8px]">Powered by Open-Meteo</span>
             </div>

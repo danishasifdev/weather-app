@@ -245,12 +245,41 @@ export async function fetchForecast({ latitude, longitude, signal }) {
 }
 
 export function aqiInfo(aqi) {
-  if (aqi == null) return { label: "Unavailable", tone: "#94a3b8", note: "Air quality data is not available." };
-  if (aqi <= 50) return { label: "Good", tone: "#86c98f", note: "Air quality is satisfactory." };
-  if (aqi <= 100) return { label: "Standard", tone: "#d4cf62", note: "Acceptable for most people." };
-  if (aqi <= 150) return { label: "Sensitive", tone: "#e0a34b", note: "Sensitive groups should take care." };
-  if (aqi <= 200) return { label: "Poor", tone: "#e0795c", note: "Consider limiting outdoor activity." };
-  return { label: "Hazardous", tone: "#c25a72", note: "Avoid prolonged outdoor activity." };
+  if (aqi == null)
+    return {
+      label: "Unavailable",
+      tone: "#94a3b8",
+      note: "Air quality data is not available.",
+    };
+  if (aqi <= 50)
+    return {
+      label: "Good",
+      tone: "#86c98f",
+      note: "Air quality is satisfactory.",
+    };
+  if (aqi <= 100)
+    return {
+      label: "Standard",
+      tone: "#d4cf62",
+      note: "Acceptable for most people.",
+    };
+  if (aqi <= 150)
+    return {
+      label: "Sensitive",
+      tone: "#e0a34b",
+      note: "Sensitive groups should take care.",
+    };
+  if (aqi <= 200)
+    return {
+      label: "Poor",
+      tone: "#e0795c",
+      note: "Consider limiting outdoor activity.",
+    };
+  return {
+    label: "Hazardous",
+    tone: "#c25a72",
+    note: "Avoid prolonged outdoor activity.",
+  };
 }
 
 export async function fetchAirQuality({ latitude, longitude, signal }) {
