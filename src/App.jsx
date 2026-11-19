@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Bell, LocateFixed, RefreshCw, User } from "lucide-react";
 import Dashboard from "./components/Dashboard";
@@ -12,6 +11,7 @@ import {
   OrbitSpinner,
 } from "./components/States";
 import WeatherBackdrop from "./components/WeatherBackdrop";
+import { IconButton } from "./components/ui";
 import {
   DEFAULT_LOCATION,
   fetchForecast,
@@ -40,23 +40,6 @@ function themeFor(category, isDay) {
   if (category === "clear") return isDay ? THEMES["clear-day"] : THEMES["clear-night"];
   if (category === "partly") return isDay ? THEMES.partly : THEMES["clear-night"];
   return THEMES[category] || THEMES["clear-day"];
-}
-
-function IconButton({ label, onClick, children, active }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      title={label}
-      aria-label={label}
-      className={`hover:bg-brand-orange/10 hover:text-brand-text relative grid h-9 w-9 place-items-center rounded-full text-[#62708a] transition-all hover:-translate-y-px max-[520px]:h-8 max-[520px]:w-8 ${active ? "bg-brand-orange/10 text-brand-text" : ""}`}
-    >
-      {active && (
-        <span className="bg-brand-orange/20 pointer-events-none absolute inset-0 animate-ping rounded-full" />
-      )}
-      {children}
-    </button>
-  );
 }
 
 export default function App() {

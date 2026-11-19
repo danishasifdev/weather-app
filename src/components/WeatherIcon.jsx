@@ -12,6 +12,17 @@ import {
 } from "lucide-react";
 import { weatherInfo } from "../lib/weather";
 
+/** Ordered lookup rules: first matching condition wins. */
+const ICON_RULES = [
+  ["clear", (day) => (day ? Sun : Moon)],
+  ["partly", (day) => (day ? CloudSun : CloudMoon)],
+  ["cloudy", () => Cloud],
+  ["fog", () => CloudFog],
+  ["rain", () => CloudRain],
+  ["snow", () => CloudSnow],
+  ["storm", () => CloudLightning],
+];
+
 /** Weather condition glyphs backed by lucide-react. */
 export default function WeatherIcon({
   code,
@@ -21,15 +32,7 @@ export default function WeatherIcon({
   strokeWidth = 1.8,
 }) {
   const { category } = weatherInfo(code);
-
-  let Icon = Cloud;
-  if (category === "clear") Icon = isDay ? Sun : Moon;
-  else if (category === "partly") Icon = isDay ? CloudSun : CloudMoon;
-  else if (category === "cloudy") Icon = Cloud;
-  else if (category === "fog") Icon = CloudFog;
-  else if (category === "rain") Icon = CloudRain;
-  else if (category === "snow") Icon = CloudSnow;
-  else if (category === "storm") Icon = CloudLightning;
+  const Icon = ICON_RULES.find(([key]) => key === category)?.[1](isDay) || Cloud;
 
   return <Icon size={size} strokeWidth={strokeWidth} className={className} aria-hidden="true" />;
 }

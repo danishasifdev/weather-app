@@ -336,7 +336,7 @@ export default function SearchBox({ query, onQueryChange, onSelect }) {
                 {[0, 1, 2].map((i) => (
                   <div
                     key={i}
-                    className="after:animate-shimmer relative h-11 w-full overflow-hidden rounded-xl bg-[#e9edf0] after:absolute after:inset-0 after:-translate-x-full after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.85),transparent)] after:content-[''] after:[animation-delay:var(--shimmer-delay)]"
+                    className="after:animate-shimmer relative h-11 w-full overflow-hidden rounded-xl bg-[#e9edf0] after:pointer-events-none after:absolute after:inset-0 after:-translate-x-full after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.85),transparent)] after:content-[''] after:[animation-delay:var(--shimmer-delay)]"
                     style={{ "--shimmer-delay": `${i * 140}ms` }}
                   />
                 ))}

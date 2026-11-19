@@ -189,6 +189,7 @@
 
   button {
     font-family: inherit;
+    cursor: pointer;
   }
 
   ::selection {

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types, react/no-unescaped-entities */
 import { useEffect, useId, useState } from "react";
 import { CloudOff, CloudSun, Wind, X } from "lucide-react";
+import { Button } from "./ui";
 
 /** Small shimmering block used by every skeleton layout. */
 function Shimmer({ className = "", delay = 0, style }) {
@@ -178,6 +179,8 @@ const LOADING_LINES = [
   "Almost there…",
 ];
 
+const SIDE_BLOCKS = ["h-16", "h-36", "h-20", "h-56"];
+
 export function DashboardSkeleton() {
   const [step, setStep] = useState(0);
 
@@ -237,12 +240,8 @@ export function DashboardSkeleton() {
           </div>
         </div>
         <div className="bg-brand-grey flex min-w-0 flex-col gap-3.5 rounded-[28px] p-4.5 shadow-[inset_0_1px_0_#fff] max-[1180px]:grid max-[1180px]:grid-cols-2 max-[1180px]:items-start max-[760px]:flex max-[760px]:p-4">
-          {[0, 1, 2, 3].map((i) => (
-            <Shimmer
-              key={i}
-              className={`w-full rounded-2xl ${i === 0 ? "h-16" : i === 1 ? "h-36" : i === 2 ? "h-20" : "h-56"}`}
-              delay={i * 150}
-            />
+          {SIDE_BLOCKS.map((height, i) => (
+            <Shimmer key={height} className={`w-full rounded-2xl ${height}`} delay={i * 150} />
           ))}
         </div>
       </div>
@@ -275,20 +274,10 @@ export function ErrorState({ error, onRetry, onUseLocation }) {
           "We couldn't reach the weather service. Check your connection and try again."}
       </p>
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <button
-          type="button"
-          onClick={onRetry}
-          className="bg-brand-deep text-13px shadow-orange rounded-full px-6 py-3 font-bold text-white"
-        >
-          Try again
-        </button>
-        <button
-          type="button"
-          onClick={onUseLocation}
-          className="border-brand-navy/10 text-13px text-brand-navy rounded-full border bg-white px-6 py-3 font-semibold"
-        >
+        <Button onClick={onRetry}>Try again</Button>
+        <Button variant="outline" onClick={onUseLocation}>
           Use my location
-        </button>
+        </Button>
       </div>
       <p className="mt-8 text-xs text-[#858A98]">You can also search for any city above.</p>
     </div>
@@ -308,13 +297,9 @@ export function ErrorBanner({ message, onRetry, onDismiss }) {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={onRetry}
-          className="text-brand-text rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold shadow-sm"
-        >
+        <Button variant="soft" small onClick={onRetry}>
           Retry
-        </button>
+        </Button>
         {onDismiss && (
           <button
             type="button"
@@ -332,13 +317,13 @@ export function ErrorBanner({ message, onRetry, onDismiss }) {
 
 export function NoticeBanner({ message, actionLabel, onAction }) {
   return (
-    <div className="animate-fade-in rounded-forecast shadow-card mb-3 flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 px-4 text-xs text-[#858A98]">
+    <div className="animate-fade-in rounded-forecast shadow-card mb-3 flex flex-wrap items-center justify-between gap-3 border border-transparent bg-white p-3.5 px-4 text-xs text-[#858A98]">
       <span>{message}</span>
       {actionLabel && (
         <button
           type="button"
           onClick={onAction}
-          className="hover:text-brand-navy text-brand-text font-semibold transition"
+          className="text-brand-text hover:text-brand-navy font-semibold transition"
         >
           {actionLabel}
         </button>
